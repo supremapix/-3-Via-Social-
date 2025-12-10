@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { 
   Menu, X, CheckCircle, BookOpen, Landmark, BarChart3, 
   Users, ShieldCheck, FileText, ChevronDown, ChevronRight, 
-  Award, MousePointer2, Heart, GraduationCap, Building2, Phone 
+  Award, MousePointer2, Heart, GraduationCap, Building2, Phone,
+  Facebook, Instagram, ArrowRight, Printer
 } from 'lucide-react';
 
 const LandingPage: React.FC = () => {
@@ -31,7 +32,8 @@ const LandingPage: React.FC = () => {
       message += `*Órgão:* ${data.org || 'Não informado'}\n`;
     }
 
-    const phoneNumber = "5551995347903"; // Seu número
+    // Telefone configurado para envio do formulário
+    const phoneNumber = "5551995347903"; 
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
   };
@@ -44,32 +46,36 @@ const LandingPage: React.FC = () => {
       {/* 1. HEADER (Sticky) */}
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200">
         <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-          {/* Logo Conceitual */}
-          <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo(0,0)}>
-            <div className="w-10 h-10 bg-emerald-600 rounded-lg flex items-center justify-center shadow-lg transform rotate-3">
-              <span className="text-white font-bold text-xl">3ª</span>
+          {/* Logo Oficial 3ª Via Social */}
+          <div className="flex items-center gap-3 cursor-pointer group" onClick={() => window.scrollTo(0,0)}>
+            {/* Ícone de Barras */}
+            <div className="flex items-end gap-1.5 h-10 pb-1">
+              <div className="w-2.5 h-6 bg-[#1B3B66] rounded-t-sm group-hover:h-7 transition-all duration-300"></div>
+              <div className="w-2.5 h-10 bg-[#2ECC71] rounded-t-sm group-hover:h-11 transition-all duration-300"></div>
+              <div className="w-2.5 h-8 bg-[#F1C40F] rounded-t-sm group-hover:h-9 transition-all duration-300"></div>
             </div>
-            <div className="leading-tight">
-              <h1 className="text-xl font-bold text-slate-900 tracking-tight">VIA SOCIAL</h1>
-              <p className="text-xs text-slate-500 font-medium tracking-widest">EDUCAÇÃO & GOVERNO</p>
+            {/* Texto do Logo */}
+            <div className="flex flex-col justify-center">
+              <h1 className="text-xl font-bold text-[#1B3B66] leading-none tracking-tight">3ª VIA SOCIAL</h1>
+              <p className="text-[10px] text-slate-500 font-bold tracking-[0.2em] uppercase mt-1">Gestão e Liderança</p>
             </div>
           </div>
 
           {/* Navegação Desktop */}
           <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
-            <a href="#metodologia" className="hover:text-emerald-600 transition-colors">Metodologia</a>
-            <a href="#cursos" className="hover:text-emerald-600 transition-colors">Cursos</a>
-            <a href="#consultoria" className="hover:text-emerald-600 transition-colors">Para Prefeituras</a>
+            <a href="#metodologia" className="hover:text-[#2ECC71] transition-colors">Metodologia</a>
+            <a href="#cursos" className="hover:text-[#2ECC71] transition-colors">Cursos</a>
+            <a href="#consultoria" className="hover:text-[#2ECC71] transition-colors">Para Prefeituras</a>
             <button 
               onClick={toggleModal}
               className="flex items-center gap-2 px-4 py-2 border border-slate-300 rounded-full hover:bg-slate-50 transition-colors text-xs uppercase tracking-wide"
             >
-              <ShieldCheck size={16} className="text-emerald-600" />
+              <ShieldCheck size={16} className="text-[#2ECC71]" />
               Transparência
             </button>
             <a 
               href="#contato" 
-              className="px-5 py-2.5 bg-slate-900 text-white rounded-lg hover:bg-emerald-600 transition-all shadow-md"
+              className="px-5 py-2.5 bg-[#031226] text-white rounded-lg hover:bg-[#1B3B66] transition-all shadow-md"
             >
               Matricule-se
             </a>
@@ -87,58 +93,96 @@ const LandingPage: React.FC = () => {
             <a href="#metodologia" className="py-2 border-b border-slate-100" onClick={() => setIsMenuOpen(false)}>Metodologia</a>
             <a href="#cursos" className="py-2 border-b border-slate-100" onClick={() => setIsMenuOpen(false)}>Cursos</a>
             <a href="#consultoria" className="py-2 border-b border-slate-100" onClick={() => setIsMenuOpen(false)}>Para Prefeituras</a>
-            <button onClick={toggleModal} className="text-left py-2 text-emerald-600 font-semibold">Portal Transparência</button>
+            <button onClick={toggleModal} className="text-left py-2 text-[#2ECC71] font-semibold">Portal Transparência</button>
           </div>
         )}
       </header>
 
-      {/* 2. HERO SECTION */}
-      <section className="relative bg-slate-900 text-white pt-20 pb-32 overflow-hidden">
-        {/* Decorativo Geométrico */}
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-bl from-emerald-900/30 to-transparent pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-900/20 rounded-full blur-3xl" />
+      {/* 2. HERO SECTION REFORMULADA */}
+      <section className="relative bg-[#031226] text-white pt-24 pb-32 overflow-hidden">
+        {/* Fundo Gradiente e Textura */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#031226] via-[#051A30] to-[#0A3835] opacity-80 z-0"></div>
+        <div className="absolute top-0 right-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 z-0 mix-blend-overlay"></div>
+        
+        {/* Elementos de Luz de Fundo */}
+        <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-[#1B3B66] rounded-full blur-[120px] opacity-30"></div>
+        <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-[#2ECC71] rounded-full blur-[150px] opacity-20"></div>
 
-        <div className="container mx-auto px-4 grid md:grid-cols-2 gap-12 items-center relative z-10">
-          <div>
-            <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/30 rounded-full px-3 py-1 text-emerald-400 text-xs font-bold mb-6">
-              <CheckCircle size={14} />
-              EM CONFORMIDADE COM A LRF E LEI 14.133
+        <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-16 items-center relative z-10">
+          
+          {/* Lado Esquerdo: Conteúdo */}
+          <div className="space-y-8">
+            {/* Badge Pílula */}
+            <div className="inline-flex items-center gap-2 bg-[#1B3B66] text-white px-4 py-1.5 rounded-full border border-[#1B3B66]/50 shadow-lg shadow-blue-900/20 backdrop-blur-sm">
+              <div className="bg-white rounded-full p-0.5">
+                <CheckCircle size={12} className="text-[#1B3B66] fill-current" />
+              </div>
+              <span className="text-[11px] font-bold tracking-wider uppercase">Conforme Lei de Responsabilidade Fiscal</span>
             </div>
-            <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
-              Gestão Pública com <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-yellow-400">Dados e Técnica</span>.
+
+            {/* Título Principal */}
+            <h1 className="text-5xl md:text-6xl font-extrabold leading-[1.1] tracking-tight text-white drop-shadow-sm">
+              Gestão Pública com <br/>
+              <span className="text-[#2ECC71]">Dados e Técnica</span>
             </h1>
-            <p className="text-slate-300 text-lg mb-8 leading-relaxed max-w-lg">
-              Capacitação de elite para vereadores, secretários e prefeitos. Transforme seu mandato com inteligência política e segurança jurídica.
+
+            {/* Subtítulo */}
+            <p className="text-slate-300 text-lg leading-relaxed max-w-xl font-light border-l-4 border-[#2ECC71] pl-6">
+              Formação de Lideranças baseada em Engenharia Territorial. Transforme sua cidade com planejamento estratégico e segurança jurídica.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <a href="#contato" className="px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] flex items-center justify-center gap-2">
-                <GraduationCap size={20} />
-                Quero ser Aluno
+
+            {/* Botões */}
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <a href="#contato" className="px-8 py-4 bg-[#2ECC71] hover:bg-[#27ae60] text-white font-bold rounded-lg transition-all shadow-lg hover:shadow-[#2ECC71]/30 flex items-center justify-center gap-3 group">
+                Começar Formação
+                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
               </a>
-              <a href="#contato" onClick={() => setActiveTab('gov')} className="px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/20 text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2">
-                <Building2 size={20} />
-                Consultoria para Governo
+              <a href="#contato" onClick={() => setActiveTab('gov')} className="px-8 py-4 bg-transparent border-2 border-[#1B3B66] hover:bg-[#1B3B66] text-white font-bold rounded-lg transition-all flex items-center justify-center gap-3">
+                <div className="bg-[#1B3B66] p-1 rounded">
+                   <Building2 size={16} />
+                </div>
+                Portal B2G (Governo)
               </a>
             </div>
           </div>
 
-          {/* Visual Decorativo / Abstrato */}
-          <div className="relative hidden md:flex justify-center">
-            <div className="relative w-80 h-96 border-2 border-slate-700 rounded-2xl p-6 bg-slate-800/50 backdrop-blur-sm transform rotate-6 hover:rotate-0 transition-transform duration-500 shadow-2xl">
-               <div className="w-full h-full border border-dashed border-slate-600 rounded-lg flex flex-col justify-between p-4">
-                  <div className="flex justify-between items-center">
-                    <div className="w-12 h-12 bg-slate-700 rounded-full" />
-                    <div className="w-20 h-4 bg-slate-700 rounded" />
-                  </div>
-                  <div className="space-y-3">
-                    <div className="w-full h-2 bg-slate-700 rounded" />
-                    <div className="w-full h-2 bg-slate-700 rounded" />
-                    <div className="w-2/3 h-2 bg-emerald-500 rounded animate-pulse" />
-                  </div>
-                  <div className="mt-4 p-3 bg-emerald-900/30 rounded border border-emerald-500/30">
-                    <p className="text-emerald-400 text-xs font-mono">Status: APROVADO</p>
-                  </div>
-               </div>
+          {/* Lado Direito: Visual Cards (Módulos) */}
+          <div className="relative perspective-1000 hidden lg:block">
+            <div className="relative w-full max-w-[600px] h-[500px] transform rotate-y-[-10deg] rotate-x-[5deg] transition-transform duration-700 hover:rotate-0">
+              
+              {/* Grid de Cards */}
+              <div className="grid grid-cols-2 gap-4 h-full">
+                
+                {/* Módulo 01 - Verde Petróleo */}
+                <div className="bg-[#0A3835] rounded-xl p-6 shadow-2xl border-l-4 border-[#F1C40F] flex flex-col justify-between transform translate-y-8 hover:-translate-y-2 transition-transform duration-300">
+                  <div className="text-[#F1C40F] text-xs font-bold uppercase tracking-widest mb-2">Módulo 01</div>
+                  <h3 className="text-white text-xl font-bold leading-tight">Identidade e Ética Pública</h3>
+                  <div className="w-8 h-8 rounded-full bg-white/10 mt-4"></div>
+                </div>
+
+                {/* Módulo 06 - Azul Médio */}
+                <div className="bg-[#1E4F8A] rounded-xl p-6 shadow-2xl flex flex-col justify-between transform hover:-translate-y-2 transition-transform duration-300">
+                  <div className="text-[#2ECC71] text-xs font-bold uppercase tracking-widest mb-2">Módulo 06</div>
+                  <h3 className="text-white text-xl font-bold leading-tight">Gestão Orçamentária</h3>
+                  <div className="w-8 h-8 rounded-full bg-white/10 mt-4"></div>
+                </div>
+
+                {/* Módulo 11 - Azul Escuro/Preto */}
+                <div className="bg-[#0C1527] rounded-xl p-6 shadow-2xl border border-slate-700 flex flex-col justify-between transform translate-y-8 hover:-translate-y-2 transition-transform duration-300">
+                  <div className="text-[#F1C40F] text-xs font-bold uppercase tracking-widest mb-2">Módulo 11</div>
+                  <h3 className="text-white text-xl font-bold leading-tight">Gestão Territorial</h3>
+                  <div className="w-8 h-8 rounded-full bg-white/10 mt-4"></div>
+                </div>
+
+                {/* Módulo 12 - Laranja Queimado (Estadista) */}
+                <div className="bg-[#D98521] rounded-xl p-6 shadow-2xl relative overflow-hidden flex flex-col justify-between transform hover:-translate-y-2 transition-transform duration-300">
+                  <div className="absolute top-0 right-0 w-20 h-20 bg-white/10 rounded-bl-full"></div>
+                  <div className="text-white/80 text-xs font-bold uppercase tracking-widest mb-2">Módulo 12</div>
+                  <h3 className="text-white text-xl font-bold leading-tight">O Caminho do Estadista</h3>
+                  <div className="w-8 h-8 rounded-full bg-white/20 mt-4"></div>
+                </div>
+
+              </div>
             </div>
           </div>
         </div>
@@ -344,13 +388,13 @@ const LandingPage: React.FC = () => {
             <div className="flex rounded-xl bg-white p-1 shadow-sm mb-8">
               <button 
                 onClick={() => setActiveTab('student')}
-                className={`flex-1 py-3 text-sm font-bold rounded-lg transition-all ${activeTab === 'student' ? 'bg-emerald-600 text-white shadow' : 'text-slate-500 hover:text-slate-800'}`}
+                className={`flex-1 py-3 text-sm font-bold rounded-lg transition-all ${activeTab === 'student' ? 'bg-[#2ECC71] text-white shadow' : 'text-slate-500 hover:text-slate-800'}`}
               >
                 SOU ALUNO / LÍDER
               </button>
               <button 
                 onClick={() => setActiveTab('gov')}
-                className={`flex-1 py-3 text-sm font-bold rounded-lg transition-all ${activeTab === 'gov' ? 'bg-slate-800 text-white shadow' : 'text-slate-500 hover:text-slate-800'}`}
+                className={`flex-1 py-3 text-sm font-bold rounded-lg transition-all ${activeTab === 'gov' ? 'bg-[#031226] text-white shadow' : 'text-slate-500 hover:text-slate-800'}`}
               >
                 SOU GESTOR PÚBLICO
               </button>
@@ -365,33 +409,33 @@ const LandingPage: React.FC = () => {
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <label className="text-xs font-bold text-slate-600 uppercase">Nome Completo</label>
-                  <input required name="name" type="text" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition-all" />
+                  <input required name="name" type="text" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-[#2ECC71] focus:ring-1 focus:ring-[#2ECC71] outline-none transition-all" />
                 </div>
                 <div className="space-y-1">
                   <label className="text-xs font-bold text-slate-600 uppercase">WhatsApp</label>
-                  <input required name="phone" type="tel" placeholder="(00) 00000-0000" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition-all" />
+                  <input required name="phone" type="tel" placeholder="(00) 00000-0000" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-[#2ECC71] focus:ring-1 focus:ring-[#2ECC71] outline-none transition-all" />
                 </div>
               </div>
 
               <div className="space-y-1">
                 <label className="text-xs font-bold text-slate-600 uppercase">E-mail Corporativo/Pessoal</label>
-                <input required name="email" type="email" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition-all" />
+                <input required name="email" type="email" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-[#2ECC71] focus:ring-1 focus:ring-[#2ECC71] outline-none transition-all" />
               </div>
 
               {activeTab === 'gov' && (
                 <div className="grid md:grid-cols-2 gap-4 animate-in fade-in slide-in-from-top-4 duration-300">
                   <div className="space-y-1">
                     <label className="text-xs font-bold text-slate-600 uppercase">Órgão Público</label>
-                    <input name="org" type="text" placeholder="Ex: Prefeitura de..." className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition-all" />
+                    <input name="org" type="text" placeholder="Ex: Prefeitura de..." className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-[#2ECC71] focus:ring-1 focus:ring-[#2ECC71] outline-none transition-all" />
                   </div>
                   <div className="space-y-1">
                     <label className="text-xs font-bold text-slate-600 uppercase">Cargo</label>
-                    <input name="role" type="text" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition-all" />
+                    <input name="role" type="text" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-[#2ECC71] focus:ring-1 focus:ring-[#2ECC71] outline-none transition-all" />
                   </div>
                 </div>
               )}
 
-              <button type="submit" className={`w-full py-4 rounded-xl font-bold text-white shadow-lg transform active:scale-95 transition-all flex items-center justify-center gap-2 ${activeTab === 'student' ? 'bg-emerald-600 hover:bg-emerald-500' : 'bg-slate-900 hover:bg-slate-800'}`}>
+              <button type="submit" className={`w-full py-4 rounded-xl font-bold text-white shadow-lg transform active:scale-95 transition-all flex items-center justify-center gap-2 ${activeTab === 'student' ? 'bg-[#2ECC71] hover:bg-[#27ae60]' : 'bg-[#031226] hover:bg-[#1B3B66]'}`}>
                 <Phone size={20} />
                 Enviar para WhatsApp
               </button>
@@ -405,26 +449,56 @@ const LandingPage: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-12 mb-12">
             <div>
-              <div className="flex items-center gap-2 mb-6">
-                <div className="w-8 h-8 bg-emerald-600 rounded flex items-center justify-center text-white font-bold">3ª</div>
-                <span className="text-white font-bold text-lg">VIA SOCIAL</span>
+              <div className="flex items-center gap-3 mb-6">
+                 {/* Logo Footer Simples */}
+                 <div className="flex items-end gap-1 h-6">
+                    <div className="w-1.5 h-4 bg-[#1B3B66] rounded-t-[1px]"></div>
+                    <div className="w-1.5 h-6 bg-[#2ECC71] rounded-t-[1px]"></div>
+                    <div className="w-1.5 h-5 bg-[#F1C40F] rounded-t-[1px]"></div>
+                 </div>
+                 <span className="text-white font-bold text-lg tracking-tight">3ª VIA SOCIAL</span>
               </div>
               <p className="text-sm leading-relaxed mb-6">
                 Consultoria e educação política focada em resultados técnicos e fortalecimento democrático.
               </p>
               <div className="flex gap-4">
-                <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-emerald-600 hover:text-white transition-colors"><Users size={18}/></a>
-                <a href="#" className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-emerald-600 hover:text-white transition-colors"><Award size={18}/></a>
+                <a 
+                  href="https://www.facebook.com/joaorumpelgestor" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#2ECC71] hover:text-white transition-colors"
+                  aria-label="Facebook"
+                >
+                  <Facebook size={18}/>
+                </a>
+                <a 
+                  href="https://www.instagram.com/movimento3via/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#2ECC71] hover:text-white transition-colors"
+                  aria-label="Instagram"
+                >
+                  <Instagram size={18}/>
+                </a>
+                <a 
+                  href="https://wa.me/5551995347903?text=Ol%C3%A1%20achei%20seu%20*site%20no%20Google!*" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#2ECC71] hover:text-white transition-colors"
+                  aria-label="WhatsApp"
+                >
+                  <Phone size={18}/>
+                </a>
               </div>
             </div>
             
             <div>
               <h4 className="text-white font-bold mb-6 uppercase text-sm tracking-wider">Institucional</h4>
               <ul className="space-y-3 text-sm">
-                <li><a href="#" className="hover:text-emerald-400 transition-colors">Sobre Nós</a></li>
-                <li><a href="#" className="hover:text-emerald-400 transition-colors">Corpo Docente</a></li>
-                <li><a href="#" className="hover:text-emerald-400 transition-colors">Política de Privacidade</a></li>
-                <li><button onClick={toggleModal} className="hover:text-emerald-400 transition-colors text-left">Transparência</button></li>
+                <li><a href="#" className="hover:text-[#2ECC71] transition-colors">Sobre Nós</a></li>
+                <li><a href="#" className="hover:text-[#2ECC71] transition-colors">Corpo Docente</a></li>
+                <li><a href="#" className="hover:text-[#2ECC71] transition-colors">Política de Privacidade</a></li>
+                <li><button onClick={toggleModal} className="hover:text-[#2ECC71] transition-colors text-left">Transparência</button></li>
               </ul>
             </div>
 
@@ -433,7 +507,7 @@ const LandingPage: React.FC = () => {
               <ul className="space-y-3 text-sm">
                 <li>Brasília - DF</li>
                 <li>contato@3viasocial.com.br</li>
-                <li>+55 (61) 9999-9999</li>
+                <li>(51) 99534-7903</li>
               </ul>
             </div>
 
@@ -441,8 +515,8 @@ const LandingPage: React.FC = () => {
               <h4 className="text-white font-bold mb-6 uppercase text-sm tracking-wider">Diário Oficial da Gestão</h4>
               <p className="text-sm mb-4">Receba análises semanais no seu e-mail.</p>
               <div className="flex gap-2">
-                <input type="email" placeholder="E-mail" className="bg-slate-800 border-none rounded px-3 py-2 text-sm w-full focus:ring-1 focus:ring-emerald-500 outline-none text-white" />
-                <button className="bg-emerald-600 text-white rounded px-3 hover:bg-emerald-500"><ChevronRight size={16}/></button>
+                <input type="email" placeholder="E-mail" className="bg-slate-800 border-none rounded px-3 py-2 text-sm w-full focus:ring-1 focus:ring-[#2ECC71] outline-none text-white" />
+                <button className="bg-[#2ECC71] text-white rounded px-3 hover:bg-[#27ae60]"><ChevronRight size={16}/></button>
               </div>
             </div>
           </div>
@@ -459,7 +533,7 @@ const LandingPage: React.FC = () => {
                 href="https://supremasite.com.br" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="font-bold text-emerald-400 hover:text-white transition-colors underline decoration-emerald-400/30 underline-offset-2"
+                className="font-bold text-[#2ECC71] hover:text-white transition-colors underline decoration-[#2ECC71]/30 underline-offset-2"
               >
                 Suprema Sites Express
               </a>
@@ -479,7 +553,7 @@ const LandingPage: React.FC = () => {
             
             <div className="text-center mb-6">
               <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <ShieldCheck size={32} className="text-emerald-600" />
+                <ShieldCheck size={32} className="text-[#2ECC71]" />
               </div>
               <h3 className="text-2xl font-bold text-slate-800">Transparência Fiscal</h3>
               <p className="text-sm text-slate-500">Dados das entidades mantenedoras.</p>
