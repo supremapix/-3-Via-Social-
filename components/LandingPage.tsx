@@ -3,7 +3,9 @@ import {
   Menu, X, CheckCircle, BookOpen, Landmark, BarChart3, 
   Users, ShieldCheck, FileText, ChevronDown, ChevronRight, 
   Award, MousePointer2, Heart, GraduationCap, Building2, Phone,
-  Facebook, Instagram, ArrowRight, Printer, Shield
+  Facebook, Instagram, ArrowRight, Printer, Shield,
+  MapPin, Lightbulb, PieChart, Leaf, Link, Share2, TrendingUp, User,
+  Ribbon
 } from 'lucide-react';
 
 const LandingPage: React.FC = () => {
@@ -254,35 +256,119 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 4. GRADE CURRICULAR (Grid) */}
+      {/* 4. GRADE TÉCNICA: 12 MÓDULOS (Novo Design) */}
       <section id="cursos" className="py-20 bg-slate-50">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">Formação Técnica Continuada</h2>
-            <p className="text-slate-600 max-w-2xl mx-auto">Nossa metodologia aborda os 12 pilares essenciais para uma gestão pública moderna e eficiente.</p>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-slate-900 mb-2">Grade Técnica: 12 Módulos</h2>
+            <p className="text-slate-500 max-w-2xl mx-auto">Da Lei Orgânica à Defesa Civil. Um currículo completo para a modernização administrativa.</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: <BookOpen />, title: "Lei Orgânica & Regimento", color: "border-blue-500" },
-              { icon: <Landmark />, title: "Gestão Orçamentária", color: "border-green-500" },
-              { icon: <ShieldCheck />, title: "Compliance Público", color: "border-indigo-500" },
-              { icon: <Users />, title: "Liderança Política", color: "border-yellow-500" },
-              { icon: <Building2 />, title: "Cidades Inteligentes", color: "border-cyan-500" },
-              { icon: <FileText />, title: "Redação Oficial", color: "border-slate-500" },
-              { icon: <BarChart3 />, title: "Ciência de Dados", color: "border-purple-500" },
-              { icon: <MousePointer2 />, title: "Marketing Político", color: "border-pink-500" },
-              { icon: <Award />, title: "Captação de Recursos", color: "border-orange-500" },
-              { icon: <CheckCircle />, title: "Fiscalização Eficiente", color: "border-red-500" },
-              { icon: <Users />, title: "Gestão de Pessoas", color: "border-teal-500" },
-              { icon: <Landmark />, title: "Direito Eleitoral", color: "border-blue-800" },
+              { 
+                month: "MÊS 01", 
+                title: "A Identidade do Gestor", 
+                desc: "Ética e Princípios da Administração", 
+                colorClass: "border-teal-400", 
+                icon: <User className="text-teal-400" size={24} /> 
+              },
+              { 
+                month: "MÊS 02", 
+                title: "Lei Orgânica e Poder", 
+                desc: "Estrutura Legal do Município", 
+                colorClass: "border-blue-500", 
+                icon: <FileText className="text-blue-500" size={24} /> 
+              },
+              { 
+                month: "MÊS 03", 
+                title: "Técnica Legislativa", 
+                desc: "Processo de Criação de Leis", 
+                colorClass: "border-yellow-500", 
+                icon: <Landmark className="text-yellow-500" size={24} /> 
+              },
+              { 
+                month: "MÊS 04", 
+                title: "Planejamento Urbano", 
+                desc: "Os 32 Planos Obrigatórios", 
+                colorClass: "border-purple-500", 
+                icon: <MapPin className="text-purple-500" size={24} /> 
+              },
+              { 
+                month: "MÊS 05", 
+                title: "Cidades Inteligentes", 
+                desc: "Tecnologia e Eficiência", 
+                colorClass: "border-cyan-600", 
+                icon: <Lightbulb className="text-cyan-600" size={24} /> 
+              },
+              { 
+                month: "MÊS 06", 
+                title: "Gestão Orçamentária", 
+                desc: "PPA, LDO e LOA na Prática", 
+                colorClass: "border-emerald-500", 
+                icon: <PieChart className="text-emerald-500" size={24} /> 
+              },
+              { 
+                month: "MÊS 07", 
+                title: "Infraestrutura Urbana", 
+                desc: "Ordenamento e Zeladoria", 
+                colorClass: "border-green-700", 
+                icon: <Leaf className="text-green-700" size={24} /> 
+              },
+              { 
+                month: "MÊS 08", 
+                title: "Saúde e Educação", 
+                desc: "Gestão de Políticas Públicas", 
+                colorClass: "border-red-500", 
+                icon: <Heart className="text-red-500" size={24} /> 
+              },
+              { 
+                month: "MÊS 09", 
+                title: "Desenvolvimento Local", 
+                desc: "Economia e Emprego", 
+                colorClass: "border-orange-500", 
+                icon: <Link className="text-orange-500" size={24} /> 
+              },
+              { 
+                month: "MÊS 10", 
+                title: "Defesa Civil e Riscos", 
+                desc: "Segurança e Prevenção", 
+                colorClass: "border-slate-500", 
+                icon: <Shield className="text-slate-500" size={24} /> 
+              },
+              { 
+                month: "MÊS 11", 
+                title: "Gestão Territorial", 
+                desc: "Descentralização e Redes", 
+                colorClass: "border-indigo-400", 
+                icon: <Share2 className="text-indigo-400" size={24} /> 
+              },
+              { 
+                month: "MÊS 12", 
+                title: "O Caminho do Estadista", 
+                desc: "Liderança Estratégica 2028", 
+                colorClass: "border-yellow-600", 
+                icon: <TrendingUp className="text-yellow-600" size={24} /> 
+              },
             ].map((module, idx) => (
-              <div key={idx} className={`bg-white p-6 rounded-xl shadow-sm border-l-4 ${module.color} hover:shadow-md transition-shadow group`}>
-                <div className="text-slate-400 group-hover:text-slate-800 transition-colors mb-3">
-                  {module.icon}
+              <div key={idx} className="bg-white rounded-xl shadow-sm border border-slate-100 relative overflow-hidden group hover:shadow-lg transition-all duration-300 flex flex-col p-6 h-full">
+                {/* Borda Superior Colorida */}
+                <div className={`absolute top-0 left-0 w-full h-1.5 ${module.colorClass.replace('border', 'bg')}`}></div>
+                
+                <div className="flex justify-between items-start mb-4">
+                  <span className="text-xs text-slate-400 font-bold uppercase tracking-wider mt-1">{module.month}</span>
+                  <div className="p-2 bg-slate-50 rounded-lg group-hover:bg-slate-100 transition-colors">
+                    {module.icon}
+                  </div>
                 </div>
-                <h3 className="font-bold text-slate-800">{module.title}</h3>
-                <p className="text-sm text-slate-500 mt-2">Módulo intensivo com material prático.</p>
+
+                <h3 className="font-bold text-slate-800 text-lg leading-tight mb-2">{module.title}</h3>
+                <p className="text-sm text-slate-500 leading-relaxed mb-6">{module.desc}</p>
+
+                <div className="mt-auto pt-4 border-t border-slate-50 flex items-center gap-2 text-emerald-600 font-semibold text-xs uppercase tracking-wide">
+                  <BookOpen size={14} />
+                  Livro + Mentoria
+                </div>
               </div>
             ))}
           </div>
@@ -342,18 +428,55 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* 6. SEÇÃO ESTADISTA 2028 */}
-      <section className="py-24 bg-slate-900 text-white relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5" />
-        <div className="container mx-auto px-4 relative z-10 text-center">
-          <span className="text-emerald-400 font-bold tracking-widest uppercase text-sm mb-4 block">Mentoria High-Level</span>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 font-serif">Projeto Estadista 2028</h2>
-          <p className="text-slate-300 max-w-2xl mx-auto mb-10 text-lg">
-            Não estamos falando apenas da próxima eleição, mas do seu legado. Uma consultoria de longo prazo para construir carreiras sólidas rumo ao executivo estadual e federal.
-          </p>
-          <button onClick={() => { setActiveTab('gov'); document.getElementById('contato')?.scrollIntoView(); }} className="px-10 py-4 bg-yellow-600 hover:bg-yellow-500 text-white font-bold rounded-full transition-all shadow-lg hover:shadow-yellow-600/20">
-            Aplicar para Mentoria
-          </button>
-        </div>
+      <section className="py-24 bg-[#081121] relative overflow-hidden flex items-center">
+          {/* Diagonal Line Effect */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+              <div className="absolute top-1/2 left-[-10%] w-[120%] h-[1px] bg-gradient-to-r from-transparent via-slate-500/30 to-transparent transform -rotate-6"></div>
+          </div>
+
+          <div className="container mx-auto px-4 relative z-10">
+              <div className="grid lg:grid-cols-2 gap-16 items-center">
+                  
+                  {/* Left Block */}
+                  <div className="text-left">
+                      <span className="inline-block bg-yellow-600 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-6">
+                          Alta Performance
+                      </span>
+                      <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+                          O Caminho do <br/>Estadista 2028
+                      </h2>
+                      <p className="text-slate-300 text-lg leading-relaxed mb-8 max-w-xl">
+                          Consultoria de Engenharia Territorial para mandatos e projetos políticos de longo prazo. 
+                          Saia do improviso e entre na era da gestão baseada em evidências.
+                      </p>
+                      <button 
+                          onClick={() => { setActiveTab('gov'); document.getElementById('contato')?.scrollIntoView(); }} 
+                          className="px-8 py-3 bg-[#10B981] hover:bg-[#059669] text-white font-bold rounded-lg transition-colors shadow-lg"
+                      >
+                          Conhecer Consultoria Premium
+                      </button>
+                  </div>
+
+                  {/* Right Block (Card) */}
+                  <div className="flex justify-center lg:justify-end">
+                      <div className="bg-[#111827] border border-slate-800 rounded-2xl p-12 w-full max-w-md aspect-square flex flex-col items-center justify-center text-center shadow-2xl relative">
+                          {/* Icon */}
+                          <div className="mb-6">
+                               <TrendingUp className="text-yellow-500 w-16 h-16" strokeWidth={2} />
+                          </div>
+                          {/* Title */}
+                          <h3 className="text-2xl font-bold text-white mb-4">
+                              Engenharia de Futuro
+                          </h3>
+                          {/* Text */}
+                          <p className="text-slate-400 font-light leading-relaxed">
+                              "Transformar cidades desorganizadas em projetos de nação."
+                          </p>
+                      </div>
+                  </div>
+
+              </div>
+          </div>
       </section>
 
       {/* 7. FAQ B2G (Governo) */}
@@ -383,61 +506,79 @@ const LandingPage: React.FC = () => {
       {/* 8. FORMULÁRIO DE CONTATO (WhatsApp Integration) */}
       <section id="contato" className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto bg-slate-50 rounded-2xl p-2 shadow-inner">
+          <div className="text-center mb-10">
+             <h2 className="text-3xl font-bold text-slate-900 mb-2">Inscrição e Contratação</h2>
+             <p className="text-slate-500">Selecione o seu perfil para prosseguir.</p>
+          </div>
+
+          <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-2xl border border-slate-100 overflow-hidden">
             {/* Tabs */}
-            <div className="flex rounded-xl bg-white p-1 shadow-sm mb-8">
+            <div className="flex border-b border-slate-200">
               <button 
                 onClick={() => setActiveTab('student')}
-                className={`flex-1 py-3 text-sm font-bold rounded-lg transition-all ${activeTab === 'student' ? 'bg-[#2ECC71] text-white shadow' : 'text-slate-500 hover:text-slate-800'}`}
+                className={`flex-1 py-4 text-sm font-bold text-center transition-all ${activeTab === 'student' ? 'bg-slate-50 text-[#1B3B66] border-b-2 border-[#1B3B66]' : 'bg-white text-slate-400 hover:text-slate-600'}`}
               >
-                SOU ALUNO / LÍDER
+                Sou Aluno / Líder
               </button>
               <button 
                 onClick={() => setActiveTab('gov')}
-                className={`flex-1 py-3 text-sm font-bold rounded-lg transition-all ${activeTab === 'gov' ? 'bg-[#031226] text-white shadow' : 'text-slate-500 hover:text-slate-800'}`}
+                className={`flex-1 py-4 text-sm font-bold text-center transition-all ${activeTab === 'gov' ? 'bg-slate-50 text-[#1B3B66] border-b-2 border-[#1B3B66]' : 'bg-white text-slate-400 hover:text-slate-600'}`}
               >
-                SOU GESTOR PÚBLICO
+                Sou Gestor Público
               </button>
             </div>
 
-            <form onSubmit={handleWhatsAppSubmit} className="p-4 md:p-8 space-y-5">
-              <h3 className="text-2xl font-bold text-slate-800 mb-2">
-                {activeTab === 'student' ? 'Comece sua Jornada' : 'Solicite uma Proposta Oficial'}
-              </h3>
-              <p className="text-slate-500 text-sm mb-6">Preencha os dados abaixo para iniciar o atendimento via WhatsApp.</p>
+            <form onSubmit={handleWhatsAppSubmit} className="p-6 md:p-10 bg-slate-50/30">
               
-              <div className="grid md:grid-cols-2 gap-4">
+              {/* Balão Informativo - Apenas para Gestor Público */}
+              {activeTab === 'gov' && (
+                <div className="bg-[#F0F6FF] border border-[#BFD7FF] rounded-lg p-4 mb-8 flex items-start gap-3">
+                   <Ribbon className="text-blue-600 mt-0.5 shrink-0" size={20} />
+                   <span className="text-sm text-blue-900 font-medium leading-tight">Habilitação Jurídica (CNAEs 70.20-4-00 e 85.99-6-99). Regularidade fiscal comprovada.</span>
+                </div>
+              )}
+              
+              <div className="grid md:grid-cols-2 gap-5 mb-5">
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-600 uppercase">Nome Completo</label>
+                  <label className="text-xs font-bold text-slate-600 uppercase">Nome do Responsável</label>
                   <input required name="name" type="text" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-[#2ECC71] focus:ring-1 focus:ring-[#2ECC71] outline-none transition-all" />
                 </div>
-                <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-600 uppercase">WhatsApp</label>
-                  <input required name="phone" type="tel" placeholder="(00) 00000-0000" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-[#2ECC71] focus:ring-1 focus:ring-[#2ECC71] outline-none transition-all" />
-                </div>
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-600 uppercase">E-mail Corporativo/Pessoal</label>
-                <input required name="email" type="email" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-[#2ECC71] focus:ring-1 focus:ring-[#2ECC71] outline-none transition-all" />
+                {activeTab === 'gov' ? (
+                   <div className="space-y-1">
+                    <label className="text-xs font-bold text-slate-600 uppercase">Cargo</label>
+                    <input name="role" type="text" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-[#2ECC71] focus:ring-1 focus:ring-[#2ECC71] outline-none transition-all" />
+                   </div>
+                ) : (
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-slate-600 uppercase">WhatsApp</label>
+                    <input required name="phone" type="tel" placeholder="(00) 00000-0000" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-[#2ECC71] focus:ring-1 focus:ring-[#2ECC71] outline-none transition-all" />
+                  </div>
+                )}
               </div>
 
               {activeTab === 'gov' && (
-                <div className="grid md:grid-cols-2 gap-4 animate-in fade-in slide-in-from-top-4 duration-300">
-                  <div className="space-y-1">
+                 <div className="space-y-1 mb-5">
                     <label className="text-xs font-bold text-slate-600 uppercase">Órgão Público</label>
-                    <input name="org" type="text" placeholder="Ex: Prefeitura de..." className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-[#2ECC71] focus:ring-1 focus:ring-[#2ECC71] outline-none transition-all" />
+                    <input name="org" type="text" placeholder="Ex: Prefeitura Municipal de..." className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-[#2ECC71] focus:ring-1 focus:ring-[#2ECC71] outline-none transition-all" />
+                 </div>
+              )}
+
+              {/* Campos adicionais de contato para Gov ou Aluno (se não renderizado acima) */}
+              <div className="space-y-1 mb-6">
+                <label className="text-xs font-bold text-slate-600 uppercase">E-mail Corporativo/Pessoal</label>
+                <input required name="email" type="email" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-[#2ECC71] focus:ring-1 focus:ring-[#2ECC71] outline-none transition-all" />
+              </div>
+              
+              {activeTab === 'gov' && (
+                  <div className="space-y-1 mb-6">
+                    <label className="text-xs font-bold text-slate-600 uppercase">WhatsApp</label>
+                    <input required name="phone" type="tel" placeholder="(00) 00000-0000" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-[#2ECC71] focus:ring-1 focus:ring-[#2ECC71] outline-none transition-all" />
                   </div>
-                  <div className="space-y-1">
-                    <label className="text-xs font-bold text-slate-600 uppercase">Cargo</label>
-                    <input name="role" type="text" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-[#2ECC71] focus:ring-1 focus:ring-[#2ECC71] outline-none transition-all" />
-                  </div>
-                </div>
               )}
 
               <button type="submit" className={`w-full py-4 rounded-xl font-bold text-white shadow-lg transform active:scale-95 transition-all flex items-center justify-center gap-2 ${activeTab === 'student' ? 'bg-[#2ECC71] hover:bg-[#27ae60]' : 'bg-[#031226] hover:bg-[#1B3B66]'}`}>
                 <Phone size={20} />
-                Enviar para WhatsApp
+                {activeTab === 'student' ? 'Enviar para WhatsApp' : 'Solicitar Proposta Técnica'}
               </button>
             </form>
           </div>
