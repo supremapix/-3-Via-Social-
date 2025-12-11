@@ -358,7 +358,9 @@ const LandingPage: React.FC = () => {
                 <div className="flex justify-between items-start mb-4">
                   <span className="text-xs text-slate-400 font-bold uppercase tracking-wider mt-1">{module.month}</span>
                   <div className="p-2 bg-slate-50 rounded-lg group-hover:bg-slate-100 transition-colors">
-                    {module.icon}
+                    <div className="transform transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6">
+                      {module.icon}
+                    </div>
                   </div>
                 </div>
 
