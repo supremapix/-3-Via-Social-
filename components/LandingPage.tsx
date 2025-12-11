@@ -3,7 +3,7 @@ import {
   Menu, X, CheckCircle, BookOpen, Landmark, BarChart3, 
   Users, ShieldCheck, FileText, ChevronDown, ChevronRight, 
   Award, MousePointer2, Heart, GraduationCap, Building2, Phone,
-  Facebook, Instagram, ArrowRight, Printer
+  Facebook, Instagram, ArrowRight, Printer, Shield
 } from 'lucide-react';
 
 const LandingPage: React.FC = () => {
@@ -545,42 +545,63 @@ const LandingPage: React.FC = () => {
       {/* 10. MODAL DE TRANSPARÊNCIA */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm" onClick={toggleModal}></div>
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg z-10 p-8 relative animate-in zoom-in-95 duration-200">
-            <button onClick={toggleModal} className="absolute top-4 right-4 text-slate-400 hover:text-slate-800">
-              <X />
-            </button>
+          <div className="absolute inset-0 bg-[#031226]/80 backdrop-blur-sm transition-opacity" onClick={toggleModal}></div>
+          
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl z-10 relative animate-in zoom-in-95 duration-200 overflow-hidden">
             
-            <div className="text-center mb-6">
-              <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <ShieldCheck size={32} className="text-[#2ECC71]" />
+            {/* Header Modal */}
+            <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100">
+              <div className="flex items-center gap-3">
+                 <Shield className="text-[#1B3B66]" size={24} strokeWidth={2} />
+                 <h3 className="text-xl font-bold text-[#1B3B66]">Dados Legais e Fiscais</h3>
               </div>
-              <h3 className="text-2xl font-bold text-slate-800">Transparência Fiscal</h3>
-              <p className="text-sm text-slate-500">Dados das entidades mantenedoras.</p>
+              <button onClick={toggleModal} className="text-slate-400 hover:text-slate-600 transition-colors p-1 hover:bg-slate-100 rounded-full">
+                <X size={20} />
+              </button>
             </div>
 
-            <div className="space-y-4">
-              <div className="border border-slate-200 rounded-lg p-4">
-                <h4 className="font-bold text-slate-800 flex items-center gap-2">
-                  <Building2 size={16} className="text-slate-400"/> CFER-Brasil
-                </h4>
-                <p className="text-xs text-slate-500 mt-1 font-mono">CNPJ: 00.000.000/0001-00</p>
-                <p className="text-xs text-slate-600 mt-2">Consultoria, Formação e Educação Regional.</p>
+            {/* Conteúdo */}
+            <div className="p-6 md:p-8 space-y-5 bg-white">
+              
+              {/* Card 1 - CFER */}
+              <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+                <h4 className="text-[#1B3B66] font-bold text-lg mb-4 uppercase tracking-tight">CFER-BRASIL LTDA</h4>
+                <div className="flex flex-col sm:flex-row sm:gap-12 gap-4">
+                   <div>
+                      <p className="text-[10px] uppercase text-slate-400 font-bold tracking-wider mb-1">CNPJ</p>
+                      <p className="text-slate-800 font-semibold text-base">62.162.691/0001-87</p>
+                   </div>
+                   <div>
+                      <p className="text-[10px] uppercase text-slate-400 font-bold tracking-wider mb-1">OBJETO SOCIAL</p>
+                      <p className="text-slate-900 font-bold text-base">Consultoria em Gestão (70.20-4-00)</p>
+                   </div>
+                </div>
               </div>
-              <div className="border border-slate-200 rounded-lg p-4">
-                <h4 className="font-bold text-slate-800 flex items-center gap-2">
-                  <Building2 size={16} className="text-slate-400"/> Terra e Fé
-                </h4>
-                <p className="text-xs text-slate-500 mt-1 font-mono">CNPJ: 11.111.111/0001-11</p>
-                <p className="text-xs text-slate-600 mt-2">Associação Educacional e Social.</p>
+
+              {/* Card 2 - Terra e Fé */}
+              <div className="bg-[#ECFDF5] border border-[#A7F3D0] rounded-xl p-6 shadow-sm">
+                <h4 className="text-[#065F46] font-bold text-lg mb-4 uppercase tracking-tight">TERRA E FÉ SUSTENTÁVEL LTDA</h4>
+                <div className="flex flex-col sm:flex-row sm:gap-12 gap-4">
+                   <div>
+                      <p className="text-[10px] uppercase text-[#10B981] font-bold tracking-wider mb-1">CNPJ</p>
+                      <p className="text-[#064E3B] font-semibold text-base">61.229.136/0001-62</p>
+                   </div>
+                   <div>
+                      <p className="text-[10px] uppercase text-[#10B981] font-bold tracking-wider mb-1">OBJETO SOCIAL</p>
+                      <p className="text-[#065F46] font-bold text-base">Atividades de Ensino (85.99-6-99)</p>
+                   </div>
+                </div>
               </div>
+
             </div>
-            
-            <div className="mt-6 pt-6 border-t border-slate-100 text-center">
-              <p className="text-xs text-slate-400">
-                Documentação completa (CNDs, Balanços) disponível mediante solicitação oficial via ofício.
-              </p>
+
+            {/* Footer Modal */}
+            <div className="bg-white px-6 pb-8 pt-2 text-center">
+               <p className="text-xs text-slate-400 font-medium">
+                 Endereço Fiscal (Sede): Rua da Bahia 1148, Sala 1208, Centro, Belo Horizonte MG, 30160-906.
+               </p>
             </div>
+
           </div>
         </div>
       )}
