@@ -51,7 +51,7 @@ const LandingPage: React.FC = () => {
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200">
         <div className="container mx-auto px-4 h-20 flex items-center justify-between">
           {/* Logo Oficial 3ª Via Social */}
-          <div className="flex items-center gap-3 cursor-pointer group" onClick={() => setActiveView('home')}>
+          <div className="flex items-center gap-3 cursor-pointer group" onClick={() => { setActiveView('home'); window.scrollTo(0,0); }}>
             {/* Ícone de Barras */}
             <div className="flex items-end gap-1.5 h-10 pb-1">
               <div className="w-2.5 h-6 bg-[#1B3B66] rounded-t-sm group-hover:h-7 transition-all duration-300"></div>
@@ -69,7 +69,7 @@ const LandingPage: React.FC = () => {
           <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
             <button onClick={() => { setActiveView('home'); window.location.hash = '#metodologia'; }} className="hover:text-[#2ECC71] transition-colors">Metodologia</button>
             <button onClick={() => { setActiveView('home'); window.location.hash = '#cursos'; }} className="hover:text-[#2ECC71] transition-colors">Cursos</button>
-            <button onClick={() => setActiveView('panel')} className={`transition-colors ${activeView === 'panel' ? 'text-[#1B3B66] font-bold' : 'hover:text-[#2ECC71]'}`}>Painel de Gestão Técnica</button>
+            <button onClick={() => { setActiveView('panel'); window.scrollTo(0,0); }} className={`transition-colors ${activeView === 'panel' ? 'text-[#1B3B66] font-bold border-b-2 border-[#1B3B66]' : 'hover:text-[#2ECC71]'}`}>Painel de Gestão Técnica</button>
             <button 
               onClick={toggleModal}
               className="flex items-center gap-2 px-4 py-2 border border-slate-300 rounded-full hover:bg-slate-50 transition-colors text-xs uppercase tracking-wide"
@@ -97,7 +97,7 @@ const LandingPage: React.FC = () => {
           <div className="md:hidden bg-white border-b border-slate-200 p-4 flex flex-col gap-4 shadow-xl">
             <button onClick={() => { setIsMenuOpen(false); setActiveView('home'); }} className="text-left py-2 border-b border-slate-100">Metodologia</button>
             <button onClick={() => { setIsMenuOpen(false); setActiveView('home'); }} className="text-left py-2 border-b border-slate-100">Cursos</button>
-            <button onClick={() => { setIsMenuOpen(false); setActiveView('panel'); }} className="text-left py-2 border-b border-slate-100 text-[#1B3B66] font-bold">Painel de Gestão Técnica</button>
+            <button onClick={() => { setIsMenuOpen(false); setActiveView('panel'); window.scrollTo(0,0); }} className="text-left py-2 border-b border-slate-100 text-[#1B3B66] font-bold">Painel de Gestão Técnica</button>
             <button onClick={toggleModal} className="text-left py-2 text-[#2ECC71] font-semibold">Portal Transparência</button>
           </div>
         )}

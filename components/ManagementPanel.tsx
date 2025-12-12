@@ -519,7 +519,7 @@ const ManagementPanel: React.FC = () => {
 
 
   return (
-    <div className="text-slate-800 bg-[#f8fafc] font-sans">
+    <div className="min-h-screen text-slate-800 bg-[#f8fafc] font-sans">
       <header className="bg-gradient-to-br from-[#0f172a] to-[#1e3a8a] text-white py-16 px-4 mb-12">
         <div className="max-w-6xl mx-auto text-center">
             <div className="inline-block px-4 py-1 mb-4 border border-emerald-400 rounded-full text-emerald-300 text-sm font-bold tracking-wider uppercase">
@@ -696,11 +696,11 @@ const ManagementPanel: React.FC = () => {
             </div>
             <div className="bg-slate-50 border-t-4 border-blue-900 p-6 rounded-xl shadow-sm">
                 <h3 className="text-xl font-bold mb-4 text-blue-900">Análise de Compliance</h3>
-                <textarea ref={riskQueryRef} rows={4} className="w-full p-3 border border-slate-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 mb-4" placeholder="Descreva a ação administrativa que deseja avaliar (ex: Decidi não realizar a audiência pública da LDO no prazo)."></textarea>
+                <textarea ref={riskQueryRef} rows={4} className="w-full p-3 border border-slate-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 mb-4 bg-white text-slate-900" placeholder="Descreva a ação administrativa que deseja avaliar (ex: Decidi não realizar a audiência pública da LDO no prazo)."></textarea>
                 <button onClick={performRiskAnalysis} disabled={loading === 'risk'} className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-400 text-white font-bold rounded-lg transition flex items-center justify-center gap-2">
                     {loading === 'risk' ? 'Analisando...' : 'Analisar Risco Jurídico ✨'}
                 </button>
-                {results.risk && <div className="mt-6 p-4 bg-white border border-slate-200 rounded-lg" dangerouslySetInnerHTML={{ __html: results.risk }} />}
+                {results.risk && <div className="mt-6 p-4 bg-white border border-slate-200 rounded-lg text-slate-800" dangerouslySetInnerHTML={{ __html: results.risk }} />}
             </div>
         </section>
 
@@ -712,11 +712,11 @@ const ManagementPanel: React.FC = () => {
             </div>
             <div className="bg-slate-50 border-t-4 border-emerald-600 p-6 rounded-xl shadow-sm">
                 <h3 className="text-xl font-bold mb-4 text-emerald-600">Plano de Implementação Rápida</h3>
-                <textarea ref={planQueryRef} rows={4} className="w-full p-3 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 mb-4" placeholder="Insira seu objetivo (ex: Implementar o Plano de Saneamento Básico)"></textarea>
+                <textarea ref={planQueryRef} rows={4} className="w-full p-3 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 mb-4 bg-white text-slate-900" placeholder="Insira seu objetivo (ex: Implementar o Plano de Saneamento Básico)"></textarea>
                 <button onClick={generateActionPlan} disabled={loading === 'plan'} className="w-full py-3 bg-blue-900 hover:bg-blue-800 disabled:bg-slate-400 text-white font-bold rounded-lg transition flex items-center justify-center gap-2">
                     {loading === 'plan' ? 'Estruturando...' : 'Gerar Plano Estratégico ✨'}
                 </button>
-                {results.plan && <div className="mt-6 p-4 bg-white border border-slate-200 rounded-lg" dangerouslySetInnerHTML={{ __html: results.plan }} />}
+                {results.plan && <div className="mt-6 p-4 bg-white border border-slate-200 rounded-lg text-slate-800" dangerouslySetInnerHTML={{ __html: results.plan }} />}
             </div>
         </section>
 
@@ -728,13 +728,13 @@ const ManagementPanel: React.FC = () => {
             </div>
             <div className="bg-slate-50 border-t-4 border-yellow-500 p-6 rounded-xl shadow-sm">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <input ref={cityAuditRef} type="text" className="w-full p-3 border border-slate-300 rounded-lg" placeholder="Município (ex: Ouro Preto)"/>
-                    <input ref={stateAuditRef} type="text" className="w-full p-3 border border-slate-300 rounded-lg" placeholder="Estado (UF - ex: MG)"/>
+                    <input ref={cityAuditRef} type="text" className="w-full p-3 border border-slate-300 rounded-lg bg-white text-slate-900" placeholder="Município (ex: Ouro Preto)"/>
+                    <input ref={stateAuditRef} type="text" className="w-full p-3 border border-slate-300 rounded-lg bg-white text-slate-900" placeholder="Estado (UF - ex: MG)"/>
                 </div>
                 <button onClick={auditMunicipalPlans} disabled={loading === 'audit'} className="w-full py-3 bg-yellow-600 hover:bg-yellow-700 disabled:bg-slate-400 text-white font-bold rounded-lg transition flex items-center justify-center gap-2">
                      {loading === 'audit' ? 'Auditando...' : 'Verificar Status de Planos ✨'}
                 </button>
-                {results.audit && <div className="mt-6 p-4 bg-white border border-slate-200 rounded-lg" dangerouslySetInnerHTML={{ __html: results.audit }} />}
+                {results.audit && <div className="mt-6 p-4 bg-white border border-slate-200 rounded-lg text-slate-800" dangerouslySetInnerHTML={{ __html: results.audit }} />}
             </div>
         </section>
 
@@ -746,8 +746,8 @@ const ManagementPanel: React.FC = () => {
             </div>
             <div className="bg-slate-50 border-t-4 border-emerald-600 p-6 rounded-xl shadow-sm">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <input ref={challengeQueryRef} type="text" className="w-full p-3 border border-slate-300 rounded-lg" placeholder="Desafio (ex: Falta de água na zona rural)"/>
-                    <select ref={odsSelectRef} className="w-full p-3 border border-slate-300 rounded-lg">
+                    <input ref={challengeQueryRef} type="text" className="w-full p-3 border border-slate-300 rounded-lg bg-white text-slate-900" placeholder="Desafio (ex: Falta de água na zona rural)"/>
+                    <select ref={odsSelectRef} className="w-full p-3 border border-slate-300 rounded-lg bg-white text-slate-900">
                         <option value="ODS 6: Água Limpa e Saneamento">ODS 6: Água Limpa e Saneamento</option>
                         <option value="ODS 9: Indústria, Inovação e Infraestrutura">ODS 9: Indústria, Inovação e Infraestrutura</option>
                         <option value="ODS 11: Cidades e Comunidades Sustentáveis">ODS 11: Cidades e Comunidades Sustentáveis</option>
@@ -758,7 +758,7 @@ const ManagementPanel: React.FC = () => {
                 <button onClick={generateSustainebleIdea} disabled={loading === 'idea'} className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-400 text-white font-bold rounded-lg transition flex items-center justify-center gap-2">
                      {loading === 'idea' ? 'Gerando...' : 'Gerar Ideia de Projeto Sustentável ✨'}
                 </button>
-                {results.idea && <div className="mt-6 p-4 bg-white border border-slate-200 rounded-lg" dangerouslySetInnerHTML={{ __html: results.idea }} />}
+                {results.idea && <div className="mt-6 p-4 bg-white border border-slate-200 rounded-lg text-slate-800" dangerouslySetInnerHTML={{ __html: results.idea }} />}
             </div>
         </section>
 
@@ -770,13 +770,13 @@ const ManagementPanel: React.FC = () => {
             </div>
             <div className="bg-slate-50 border-t-4 border-blue-900 p-6 rounded-xl shadow-sm">
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <input ref={cityLeadershipRef} type="text" defaultValue="Cacequi" className="w-full p-3 border border-slate-300 rounded-lg" placeholder="Município"/>
-                    <input ref={stateLeadershipRef} type="text" defaultValue="RS" className="w-full p-3 border border-slate-300 rounded-lg" placeholder="Estado"/>
+                    <input ref={cityLeadershipRef} type="text" defaultValue="Cacequi" className="w-full p-3 border border-slate-300 rounded-lg bg-white text-slate-900" placeholder="Município"/>
+                    <input ref={stateLeadershipRef} type="text" defaultValue="RS" className="w-full p-3 border border-slate-300 rounded-lg bg-white text-slate-900" placeholder="Estado"/>
                 </div>
                 <button onClick={generateLeadershipStructure} disabled={loading === 'leadership'} className="w-full py-3 bg-blue-900 hover:bg-blue-800 disabled:bg-slate-400 text-white font-bold rounded-lg transition flex items-center justify-center gap-2">
                      {loading === 'leadership' ? 'Estruturando...' : 'Gerar Organograma e Responsabilidades ✨'}
                 </button>
-                {results.leadership && <div className="mt-6 p-4 bg-white border border-slate-200 rounded-lg" dangerouslySetInnerHTML={{ __html: results.leadership }} />}
+                {results.leadership && <div className="mt-6 p-4 bg-white border border-slate-200 rounded-lg text-slate-800" dangerouslySetInnerHTML={{ __html: results.leadership }} />}
             </div>
         </section>
 
@@ -788,13 +788,13 @@ const ManagementPanel: React.FC = () => {
             </div>
             <div className="bg-slate-50 border-t-4 border-emerald-600 p-6 rounded-xl shadow-sm">
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <input ref={lawSubjectRef} type="text" className="w-full p-3 border border-slate-300 rounded-lg" placeholder="Assunto (ex: Incentivo à Agricultura Familiar)"/>
-                    <input ref={lawEffectRef} type="text" className="w-full p-3 border border-slate-300 rounded-lg" placeholder="Efeito (ex: Cria o Programa de Apoio)"/>
+                    <input ref={lawSubjectRef} type="text" className="w-full p-3 border border-slate-300 rounded-lg bg-white text-slate-900" placeholder="Assunto (ex: Incentivo à Agricultura Familiar)"/>
+                    <input ref={lawEffectRef} type="text" className="w-full p-3 border border-slate-300 rounded-lg bg-white text-slate-900" placeholder="Efeito (ex: Cria o Programa de Apoio)"/>
                 </div>
                 <button onClick={draftProjectLaw} disabled={loading === 'law'} className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-400 text-white font-bold rounded-lg transition flex items-center justify-center gap-2">
                      {loading === 'law' ? 'Redigindo...' : 'Gerar Minuta de Projeto de Lei ✨'}
                 </button>
-                {results.law && <div className="mt-6 p-4 bg-white border border-slate-200 rounded-lg" dangerouslySetInnerHTML={{ __html: results.law }} />}
+                {results.law && <div className="mt-6 p-4 bg-white border border-slate-200 rounded-lg text-slate-800" dangerouslySetInnerHTML={{ __html: results.law }} />}
             </div>
         </section>
 
@@ -805,11 +805,11 @@ const ManagementPanel: React.FC = () => {
                 <p class="text-slate-600 mt-2">Transforme grandes metas de investimento em linhas orçamentárias concretas (PPA, LDO, LOA).</p>
             </div>
             <div className="bg-slate-50 border-t-4 border-blue-900 p-6 rounded-xl shadow-sm">
-                <textarea ref={budgetGoalQueryRef} rows={4} className="w-full p-3 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 mb-4" placeholder="Meta de investimento (ex: Construir uma UPA e comprar 5 ônibus escolares)."></textarea>
+                <textarea ref={budgetGoalQueryRef} rows={4} className="w-full p-3 border border-slate-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 mb-4 bg-white text-slate-900" placeholder="Meta de investimento (ex: Construir uma UPA e comprar 5 ônibus escolares)."></textarea>
                 <button onClick={generateParticipatoryBudget} disabled={loading === 'budget'} className="w-full py-3 bg-blue-900 hover:bg-blue-800 disabled:bg-slate-400 text-white font-bold rounded-lg transition flex items-center justify-center gap-2">
                      {loading === 'budget' ? 'Calculando...' : 'Gerar Estrutura Orçamentária ✨'}
                 </button>
-                {results.budget && <div className="mt-6 p-4 bg-white border border-slate-200 rounded-lg" dangerouslySetInnerHTML={{ __html: results.budget }} />}
+                {results.budget && <div className="mt-6 p-4 bg-white border border-slate-200 rounded-lg text-slate-800" dangerouslySetInnerHTML={{ __html: results.budget }} />}
             </div>
         </section>
 
@@ -820,11 +820,11 @@ const ManagementPanel: React.FC = () => {
                 <p class="text-slate-600 mt-2">Gere minutas de comunicado oficial de crise. A comunicação rápida é vital para a resiliência urbana.</p>
             </div>
             <div className="bg-slate-50 border-t-4 border-yellow-500 p-6 rounded-xl shadow-sm">
-                <textarea ref={crisisScenarioQueryRef} rows={4} className="w-full p-3 border border-slate-300 rounded-lg focus:ring-yellow-500 focus:border-yellow-500 mb-4" placeholder="Descreva o cenário de crise (ex: Chuvas fortes causaram deslizamentos em três bairros)."></textarea>
+                <textarea ref={crisisScenarioQueryRef} rows={4} className="w-full p-3 border border-slate-300 rounded-lg focus:ring-yellow-500 focus:border-yellow-500 mb-4 bg-white text-slate-900" placeholder="Descreva o cenário de crise (ex: Chuvas fortes causaram deslizamentos em três bairros)."></textarea>
                 <button onClick={generateCrisisProtocol} disabled={loading === 'crisis'} className="w-full py-3 bg-yellow-600 hover:bg-yellow-700 disabled:bg-slate-400 text-white font-bold rounded-lg transition flex items-center justify-center gap-2">
                      {loading === 'crisis' ? 'Redigindo...' : 'Gerar Comunicado de Crise ✨'}
                 </button>
-                {results.crisis && <div className="mt-6 p-4 bg-white border border-slate-200 rounded-lg" dangerouslySetInnerHTML={{ __html: results.crisis }} />}
+                {results.crisis && <div className="mt-6 p-4 bg-white border border-slate-200 rounded-lg text-slate-800" dangerouslySetInnerHTML={{ __html: results.crisis }} />}
             </div>
         </section>
 
@@ -835,11 +835,11 @@ const ManagementPanel: React.FC = () => {
                 <p class="text-slate-600 mt-2">Apoie parceiros locais, MEIs ou LTDA, a alcançar o Compliance necessário para certificações e parcerias B2G.</p>
             </div>
             <div className="bg-slate-50 border-t-4 border-emerald-600 p-6 rounded-xl shadow-sm">
-                <textarea ref={complianceQueryRef} rows={4} className="w-full p-3 border border-slate-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 mb-4" placeholder="Insira o desafio de conformidade (ex: Queremos ser um representante local LTDA)."></textarea>
+                <textarea ref={complianceQueryRef} rows={4} className="w-full p-3 border border-slate-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 mb-4 bg-white text-slate-900" placeholder="Insira o desafio de conformidade (ex: Queremos ser um representante local LTDA)."></textarea>
                 <button onClick={generateComplianceReport} disabled={loading === 'compliance'} className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-400 text-white font-bold rounded-lg transition flex items-center justify-center gap-2">
                      {loading === 'compliance' ? 'Auditando...' : 'Gerar Relatório de Conformidade ✨'}
                 </button>
-                {results.compliance && <div className="mt-6 p-4 bg-white border border-slate-200 rounded-lg" dangerouslySetInnerHTML={{ __html: results.compliance }} />}
+                {results.compliance && <div className="mt-6 p-4 bg-white border border-slate-200 rounded-lg text-slate-800" dangerouslySetInnerHTML={{ __html: results.compliance }} />}
             </div>
         </section>
 
