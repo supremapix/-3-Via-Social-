@@ -7,11 +7,13 @@ import {
   MapPin, Lightbulb, PieChart, Leaf, Link, Share2, TrendingUp, User,
   Ribbon
 } from 'lucide-react';
+import ManagementPanel from './ManagementPanel';
 
 const LandingPage: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [activeTab, setActiveTab] = useState<'student' | 'gov'>('student'); // 'student' or 'gov'
+  const [activeTab, setActiveTab] = useState<'student' | 'gov'>('student'); 
+  const [activeView, setActiveView] = useState<'home' | 'panel'>('home'); // Estado para navegação entre views
   
   // Estado para o Quiz Interativo
   const [quizStep, setQuizStep] = useState<number>(0);
@@ -49,7 +51,7 @@ const LandingPage: React.FC = () => {
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200">
         <div className="container mx-auto px-4 h-20 flex items-center justify-between">
           {/* Logo Oficial 3ª Via Social */}
-          <div className="flex items-center gap-3 cursor-pointer group" onClick={() => window.scrollTo(0,0)}>
+          <div className="flex items-center gap-3 cursor-pointer group" onClick={() => setActiveView('home')}>
             {/* Ícone de Barras */}
             <div className="flex items-end gap-1.5 h-10 pb-1">
               <div className="w-2.5 h-6 bg-[#1B3B66] rounded-t-sm group-hover:h-7 transition-all duration-300"></div>
@@ -65,9 +67,9 @@ const LandingPage: React.FC = () => {
 
           {/* Navegação Desktop */}
           <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
-            <a href="#metodologia" className="hover:text-[#2ECC71] transition-colors">Metodologia</a>
-            <a href="#cursos" className="hover:text-[#2ECC71] transition-colors">Cursos</a>
-            <a href="#consultoria" className="hover:text-[#2ECC71] transition-colors">Para Prefeituras</a>
+            <button onClick={() => { setActiveView('home'); window.location.hash = '#metodologia'; }} className="hover:text-[#2ECC71] transition-colors">Metodologia</button>
+            <button onClick={() => { setActiveView('home'); window.location.hash = '#cursos'; }} className="hover:text-[#2ECC71] transition-colors">Cursos</button>
+            <button onClick={() => setActiveView('panel')} className={`transition-colors ${activeView === 'panel' ? 'text-[#1B3B66] font-bold' : 'hover:text-[#2ECC71]'}`}>Painel de Gestão Técnica</button>
             <button 
               onClick={toggleModal}
               className="flex items-center gap-2 px-4 py-2 border border-slate-300 rounded-full hover:bg-slate-50 transition-colors text-xs uppercase tracking-wide"
@@ -77,6 +79,7 @@ const LandingPage: React.FC = () => {
             </button>
             <a 
               href="#contato" 
+              onClick={() => setActiveView('home')}
               className="px-5 py-2.5 bg-[#031226] text-white rounded-lg hover:bg-[#1B3B66] transition-all shadow-md"
             >
               Matricule-se
@@ -92,598 +95,605 @@ const LandingPage: React.FC = () => {
         {/* Mobile Menu Content */}
         {isMenuOpen && (
           <div className="md:hidden bg-white border-b border-slate-200 p-4 flex flex-col gap-4 shadow-xl">
-            <a href="#metodologia" className="py-2 border-b border-slate-100" onClick={() => setIsMenuOpen(false)}>Metodologia</a>
-            <a href="#cursos" className="py-2 border-b border-slate-100" onClick={() => setIsMenuOpen(false)}>Cursos</a>
-            <a href="#consultoria" className="py-2 border-b border-slate-100" onClick={() => setIsMenuOpen(false)}>Para Prefeituras</a>
+            <button onClick={() => { setIsMenuOpen(false); setActiveView('home'); }} className="text-left py-2 border-b border-slate-100">Metodologia</button>
+            <button onClick={() => { setIsMenuOpen(false); setActiveView('home'); }} className="text-left py-2 border-b border-slate-100">Cursos</button>
+            <button onClick={() => { setIsMenuOpen(false); setActiveView('panel'); }} className="text-left py-2 border-b border-slate-100 text-[#1B3B66] font-bold">Painel de Gestão Técnica</button>
             <button onClick={toggleModal} className="text-left py-2 text-[#2ECC71] font-semibold">Portal Transparência</button>
           </div>
         )}
       </header>
 
-      {/* 2. HERO SECTION REFORMULADA */}
-      <section className="relative bg-[#031226] text-white pt-24 pb-32 overflow-hidden">
-        {/* Fundo Gradiente e Textura */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#031226] via-[#051A30] to-[#0A3835] opacity-80 z-0"></div>
-        <div className="absolute top-0 right-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 z-0 mix-blend-overlay"></div>
-        
-        {/* Elementos de Luz de Fundo */}
-        <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-[#1B3B66] rounded-full blur-[120px] opacity-30"></div>
-        <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-[#2ECC71] rounded-full blur-[150px] opacity-20"></div>
+      {/* CONDITIONAL RENDERING */}
+      {activeView === 'panel' ? (
+        <ManagementPanel />
+      ) : (
+        <>
+          {/* 2. HERO SECTION REFORMULADA */}
+          <section className="relative bg-[#031226] text-white pt-24 pb-32 overflow-hidden">
+            {/* Fundo Gradiente e Textura */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#031226] via-[#051A30] to-[#0A3835] opacity-80 z-0"></div>
+            <div className="absolute top-0 right-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 z-0 mix-blend-overlay"></div>
+            
+            {/* Elementos de Luz de Fundo */}
+            <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-[#1B3B66] rounded-full blur-[120px] opacity-30"></div>
+            <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-[#2ECC71] rounded-full blur-[150px] opacity-20"></div>
 
-        <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-16 items-center relative z-10">
-          
-          {/* Lado Esquerdo: Conteúdo */}
-          <div className="space-y-8">
-            {/* Badge Pílula */}
-            <div className="inline-flex items-center gap-2 bg-[#1B3B66] text-white px-4 py-1.5 rounded-full border border-[#1B3B66]/50 shadow-lg shadow-blue-900/20 backdrop-blur-sm">
-              <div className="bg-white rounded-full p-0.5">
-                <CheckCircle size={12} className="text-[#1B3B66] fill-current" />
-              </div>
-              <span className="text-[11px] font-bold tracking-wider uppercase">Conforme Lei de Responsabilidade Fiscal</span>
-            </div>
-
-            {/* Título Principal */}
-            <h1 className="text-5xl md:text-6xl font-extrabold leading-[1.1] tracking-tight text-white drop-shadow-sm">
-              Gestão Pública com <br/>
-              <span className="text-[#2ECC71]">Dados e Técnica</span>
-            </h1>
-
-            {/* Subtítulo */}
-            <p className="text-slate-300 text-lg leading-relaxed max-w-xl font-light border-l-4 border-[#2ECC71] pl-6">
-              Formação de Lideranças baseada em Engenharia Territorial. Transforme sua cidade com planejamento estratégico e segurança jurídica.
-            </p>
-
-            {/* Botões */}
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <a href="#contato" className="px-8 py-4 bg-[#2ECC71] hover:bg-[#27ae60] text-white font-bold rounded-lg transition-all shadow-lg hover:shadow-[#2ECC71]/30 flex items-center justify-center gap-3 group">
-                Começar Formação
-                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-              </a>
-              <a href="#contato" onClick={() => setActiveTab('gov')} className="px-8 py-4 bg-transparent border-2 border-[#1B3B66] hover:bg-[#1B3B66] text-white font-bold rounded-lg transition-all flex items-center justify-center gap-3">
-                <div className="bg-[#1B3B66] p-1 rounded">
-                   <Building2 size={16} />
-                </div>
-                Portal B2G (Governo)
-              </a>
-            </div>
-          </div>
-
-          {/* Lado Direito: Visual Cards (Módulos) */}
-          <div className="relative perspective-1000 hidden lg:block">
-            <div className="relative w-full max-w-[600px] h-[500px] transform rotate-y-[-10deg] rotate-x-[5deg] transition-transform duration-700 hover:rotate-0">
+            <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-16 items-center relative z-10">
               
-              {/* Grid de Cards */}
-              <div className="grid grid-cols-2 gap-4 h-full">
-                
-                {/* Módulo 01 - Verde Petróleo */}
-                <div className="bg-[#0A3835] rounded-xl p-6 shadow-2xl border-l-4 border-[#F1C40F] flex flex-col justify-between transform translate-y-8 hover:-translate-y-2 transition-transform duration-300">
-                  <div className="text-[#F1C40F] text-xs font-bold uppercase tracking-widest mb-2">Módulo 01</div>
-                  <h3 className="text-white text-xl font-bold leading-tight">Identidade e Ética Pública</h3>
-                  <div className="w-8 h-8 rounded-full bg-white/10 mt-4"></div>
-                </div>
-
-                {/* Módulo 06 - Azul Médio */}
-                <div className="bg-[#1E4F8A] rounded-xl p-6 shadow-2xl flex flex-col justify-between transform hover:-translate-y-2 transition-transform duration-300">
-                  <div className="text-[#2ECC71] text-xs font-bold uppercase tracking-widest mb-2">Módulo 06</div>
-                  <h3 className="text-white text-xl font-bold leading-tight">Gestão Orçamentária</h3>
-                  <div className="w-8 h-8 rounded-full bg-white/10 mt-4"></div>
-                </div>
-
-                {/* Módulo 11 - Azul Escuro/Preto */}
-                <div className="bg-[#0C1527] rounded-xl p-6 shadow-2xl border border-slate-700 flex flex-col justify-between transform translate-y-8 hover:-translate-y-2 transition-transform duration-300">
-                  <div className="text-[#F1C40F] text-xs font-bold uppercase tracking-widest mb-2">Módulo 11</div>
-                  <h3 className="text-white text-xl font-bold leading-tight">Gestão Territorial</h3>
-                  <div className="w-8 h-8 rounded-full bg-white/10 mt-4"></div>
-                </div>
-
-                {/* Módulo 12 - Laranja Queimado (Estadista) */}
-                <div className="bg-[#D98521] rounded-xl p-6 shadow-2xl relative overflow-hidden flex flex-col justify-between transform hover:-translate-y-2 transition-transform duration-300">
-                  <div className="absolute top-0 right-0 w-20 h-20 bg-white/10 rounded-bl-full"></div>
-                  <div className="text-white/80 text-xs font-bold uppercase tracking-widest mb-2">Módulo 12</div>
-                  <h3 className="text-white text-xl font-bold leading-tight">O Caminho do Estadista</h3>
-                  <div className="w-8 h-8 rounded-full bg-white/20 mt-4"></div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. FERRAMENTA INTERATIVA (Diagnóstico) */}
-      <section className="py-20 -mt-10 relative z-20">
-        <div className="container mx-auto px-4">
-          <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-8 md:p-12 max-w-4xl mx-auto">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-slate-800">Termômetro da Gestão 🌡️</h2>
-              <p className="text-slate-500">Descubra o nível de maturidade técnica do seu gabinete.</p>
-            </div>
-
-            {!quizFinished ? (
-              <div className="space-y-6">
-                <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                  <div 
-                    className="bg-emerald-500 h-full transition-all duration-500" 
-                    style={{width: `${((quizStep + 1) / 3) * 100}%`}} 
-                  />
-                </div>
-                
-                {quizStep === 0 && (
-                  <div className="animate-in fade-in slide-in-from-right duration-300">
-                    <h3 className="text-lg font-semibold mb-4">Como seu gabinete organiza as demandas da população?</h3>
-                    <div className="grid gap-3">
-                      <button onClick={() => setQuizStep(1)} className="p-4 border rounded-lg hover:bg-emerald-50 hover:border-emerald-300 text-left transition-all">A. Anotamos em caderno/planilha solta.</button>
-                      <button onClick={() => setQuizStep(1)} className="p-4 border rounded-lg hover:bg-emerald-50 hover:border-emerald-300 text-left transition-all">B. Usamos WhatsApp pessoal.</button>
-                      <button onClick={() => setQuizStep(1)} className="p-4 border rounded-lg hover:bg-emerald-50 hover:border-emerald-300 text-left transition-all">C. Temos um sistema de CRM/Protocolo.</button>
-                    </div>
+              {/* Lado Esquerdo: Conteúdo */}
+              <div className="space-y-8">
+                {/* Badge Pílula */}
+                <div className="inline-flex items-center gap-2 bg-[#1B3B66] text-white px-4 py-1.5 rounded-full border border-[#1B3B66]/50 shadow-lg shadow-blue-900/20 backdrop-blur-sm">
+                  <div className="bg-white rounded-full p-0.5">
+                    <CheckCircle size={12} className="text-[#1B3B66] fill-current" />
                   </div>
-                )}
-                 {quizStep === 1 && (
-                  <div className="animate-in fade-in slide-in-from-right duration-300">
-                    <h3 className="text-lg font-semibold mb-4">Qual seu nível de conhecimento sobre a Nova Lei de Licitações (14.133)?</h3>
-                    <div className="grid gap-3">
-                      <button onClick={() => setQuizStep(2)} className="p-4 border rounded-lg hover:bg-emerald-50 hover:border-emerald-300 text-left transition-all">A. Básico/Nenhum.</button>
-                      <button onClick={() => setQuizStep(2)} className="p-4 border rounded-lg hover:bg-emerald-50 hover:border-emerald-300 text-left transition-all">B. Já fiz alguns cursos livres.</button>
-                      <button onClick={() => setQuizStep(2)} className="p-4 border rounded-lg hover:bg-emerald-50 hover:border-emerald-300 text-left transition-all">C. Tenho equipe jurídica especializada.</button>
-                    </div>
-                  </div>
-                )}
-                 {quizStep === 2 && (
-                  <div className="animate-in fade-in slide-in-from-right duration-300">
-                    <h3 className="text-lg font-semibold mb-4">Você sabe fiscalizar o PPA, LDO e LOA?</h3>
-                    <div className="grid gap-3">
-                      <button onClick={() => setQuizFinished(true)} className="p-4 border rounded-lg hover:bg-emerald-50 hover:border-emerald-300 text-left transition-all">A. Não sei o que significam as siglas.</button>
-                      <button onClick={() => setQuizFinished(true)} className="p-4 border rounded-lg hover:bg-emerald-50 hover:border-emerald-300 text-left transition-all">B. Entendo, mas não sei analisar os números.</button>
-                      <button onClick={() => setQuizFinished(true)} className="p-4 border rounded-lg hover:bg-emerald-50 hover:border-emerald-300 text-left transition-all">C. Apresento emendas regularmente.</button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div className="text-center animate-in zoom-in duration-300">
-                <div className="w-16 h-16 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Award size={32} />
-                </div>
-                <h3 className="text-2xl font-bold text-slate-800 mb-2">Diagnóstico Preliminar Concluído!</h3>
-                <p className="text-slate-600 mb-6">Identificamos oportunidades críticas de melhoria na sua gestão técnica. Receba o relatório completo e um plano de ação.</p>
-                <div className="flex max-w-md mx-auto gap-2">
-                  <input type="email" placeholder="Seu melhor e-mail" className="flex-1 px-4 py-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500" />
-                  <button className="px-6 py-3 bg-slate-900 text-white font-bold rounded-lg hover:bg-slate-800">Receber</button>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. GRADE TÉCNICA: 12 MÓDULOS (Novo Design) */}
-      <section id="cursos" className="py-20 bg-slate-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 mb-2">Grade Técnica: 12 Módulos</h2>
-            <p className="text-slate-500 max-w-2xl mx-auto">Da Lei Orgânica à Defesa Civil. Um currículo completo para a modernização administrativa.</p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { 
-                month: "MÊS 01", 
-                title: "A Identidade do Gestor", 
-                desc: "Ética e Princípios da Administração", 
-                colorClass: "border-teal-400", 
-                icon: <User className="text-teal-400" size={24} /> 
-              },
-              { 
-                month: "MÊS 02", 
-                title: "Lei Orgânica e Poder", 
-                desc: "Estrutura Legal do Município", 
-                colorClass: "border-blue-500", 
-                icon: <FileText className="text-blue-500" size={24} /> 
-              },
-              { 
-                month: "MÊS 03", 
-                title: "Técnica Legislativa", 
-                desc: "Processo de Criação de Leis", 
-                colorClass: "border-yellow-500", 
-                icon: <Landmark className="text-yellow-500" size={24} /> 
-              },
-              { 
-                month: "MÊS 04", 
-                title: "Planejamento Urbano", 
-                desc: "Os 32 Planos Obrigatórios", 
-                colorClass: "border-purple-500", 
-                icon: <MapPin className="text-purple-500" size={24} /> 
-              },
-              { 
-                month: "MÊS 05", 
-                title: "Cidades Inteligentes", 
-                desc: "Tecnologia e Eficiência", 
-                colorClass: "border-cyan-600", 
-                icon: <Lightbulb className="text-cyan-600" size={24} /> 
-              },
-              { 
-                month: "MÊS 06", 
-                title: "Gestão Orçamentária", 
-                desc: "PPA, LDO e LOA na Prática", 
-                colorClass: "border-emerald-500", 
-                icon: <PieChart className="text-emerald-500" size={24} /> 
-              },
-              { 
-                month: "MÊS 07", 
-                title: "Infraestrutura Urbana", 
-                desc: "Ordenamento e Zeladoria", 
-                colorClass: "border-green-700", 
-                icon: <Leaf className="text-green-700" size={24} /> 
-              },
-              { 
-                month: "MÊS 08", 
-                title: "Saúde e Educação", 
-                desc: "Gestão de Políticas Públicas", 
-                colorClass: "border-red-500", 
-                icon: <Heart className="text-red-500" size={24} /> 
-              },
-              { 
-                month: "MÊS 09", 
-                title: "Desenvolvimento Local", 
-                desc: "Economia e Emprego", 
-                colorClass: "border-orange-500", 
-                icon: <Link className="text-orange-500" size={24} /> 
-              },
-              { 
-                month: "MÊS 10", 
-                title: "Defesa Civil e Riscos", 
-                desc: "Segurança e Prevenção", 
-                colorClass: "border-slate-500", 
-                icon: <Shield className="text-slate-500" size={24} /> 
-              },
-              { 
-                month: "MÊS 11", 
-                title: "Gestão Territorial", 
-                desc: "Descentralização e Redes", 
-                colorClass: "border-indigo-400", 
-                icon: <Share2 className="text-indigo-400" size={24} /> 
-              },
-              { 
-                month: "MÊS 12", 
-                title: "O Caminho do Estadista", 
-                desc: "Liderança Estratégica 2028", 
-                colorClass: "border-yellow-600", 
-                icon: <TrendingUp className="text-yellow-600" size={24} /> 
-              },
-            ].map((module, idx) => (
-              <div key={idx} className="bg-white rounded-xl shadow-sm border border-slate-100 relative overflow-hidden group hover:shadow-lg transition-all duration-300 flex flex-col p-6 h-full">
-                {/* Borda Superior Colorida */}
-                <div className={`absolute top-0 left-0 w-full h-1.5 ${module.colorClass.replace('border', 'bg')}`}></div>
-                
-                <div className="flex justify-between items-start mb-4">
-                  <span className="text-xs text-slate-400 font-bold uppercase tracking-wider mt-1">{module.month}</span>
-                  <div className="p-2 bg-slate-50 rounded-lg group-hover:bg-slate-100 transition-colors">
-                    <div className="transform transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6">
-                      {module.icon}
-                    </div>
-                  </div>
+                  <span className="text-[11px] font-bold tracking-wider uppercase">Conforme Lei de Responsabilidade Fiscal</span>
                 </div>
 
-                <h3 className="font-bold text-slate-800 text-lg leading-tight mb-2">{module.title}</h3>
-                <p className="text-sm text-slate-500 leading-relaxed mb-6">{module.desc}</p>
+                {/* Título Principal */}
+                <h1 className="text-5xl md:text-6xl font-extrabold leading-[1.1] tracking-tight text-white drop-shadow-sm">
+                  Gestão Pública com <br/>
+                  <span className="text-[#2ECC71]">Dados e Técnica</span>
+                </h1>
 
-                <div className="mt-auto pt-4 border-t border-slate-50 flex items-center gap-2 text-emerald-600 font-semibold text-xs uppercase tracking-wide">
-                  <BookOpen size={14} />
-                  Livro + Mentoria
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 5. SEÇÃO CERTIFICAÇÃO (Prova Social + Mockup CSS) */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center gap-16">
-          <div className="md:w-1/2">
-            <h2 className="text-3xl font-bold text-slate-900 mb-6">Certificação com Validade Nacional</h2>
-            <p className="text-slate-600 mb-6 text-lg">
-              A 3ª Via Social opera sob CNAE de Ensino, garantindo que nossos certificados sejam aceitos para progressão de carreira e comprovação de títulos.
-            </p>
-            <ul className="space-y-4">
-              <li className="flex items-center gap-3">
-                <CheckCircle className="text-emerald-500" size={20} />
-                <span className="text-slate-700">QR Code de validação digital anti-fraude.</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <CheckCircle className="text-emerald-500" size={20} />
-                <span className="text-slate-700">Carga horária detalhada no verso.</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <CheckCircle className="text-emerald-500" size={20} />
-                <span className="text-slate-700">Assinatura de especialistas mestres e doutores.</span>
-              </li>
-            </ul>
-          </div>
-          
-          {/* Mockup de Certificado CSS */}
-          <div className="md:w-1/2 w-full flex justify-center">
-            <div className="relative w-full max-w-md bg-slate-50 border-8 border-double border-yellow-600 p-8 shadow-2xl transform rotate-2 hover:rotate-0 transition-all duration-500">
-              <div className="absolute top-0 left-0 w-full h-full border border-slate-300 m-2 pointer-events-none" />
-              <div className="text-center border-b-2 border-slate-200 pb-4 mb-4">
-                <div className="text-3xl font-serif text-slate-800 font-bold uppercase tracking-widest">Certificado</div>
-                <div className="text-xs text-slate-500 uppercase mt-1">De Conclusão de Curso</div>
-              </div>
-              <div className="text-center space-y-4">
-                <p className="text-sm text-slate-600">Certificamos que</p>
-                <p className="text-2xl font-script text-emerald-800 font-bold italic">Excelentíssimo Gestor</p>
-                <p className="text-sm text-slate-600">concluiu com êxito a formação em</p>
-                <p className="font-bold text-slate-900 uppercase">Alta Gestão Pública</p>
-              </div>
-              <div className="flex justify-between items-end mt-12 pt-4 border-t border-slate-200">
-                <div className="text-center">
-                   <div className="w-24 h-px bg-slate-800 mb-2"></div>
-                   <p className="text-[10px] uppercase text-slate-500">Diretor Acadêmico</p>
-                </div>
-                <div className="w-12 h-12 bg-yellow-500/20 rounded-full flex items-center justify-center border border-yellow-600 text-yellow-700">
-                  <Award size={24} />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 6. SEÇÃO ESTADISTA 2028 */}
-      <section className="py-24 bg-[#081121] relative overflow-hidden flex items-center">
-          {/* Diagonal Line Effect */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              <div className="absolute top-1/2 left-[-10%] w-[120%] h-[1px] bg-gradient-to-r from-transparent via-slate-500/30 to-transparent transform -rotate-6"></div>
-          </div>
-
-          <div className="container mx-auto px-4 relative z-10">
-              <div className="grid lg:grid-cols-2 gap-16 items-center">
-                  
-                  {/* Left Block */}
-                  <div className="text-left">
-                      <span className="inline-block bg-yellow-600 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-6">
-                          Alta Performance
-                      </span>
-                      <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
-                          O Caminho do <br/>Estadista 2028
-                      </h2>
-                      <p className="text-slate-300 text-lg leading-relaxed mb-8 max-w-xl">
-                          Consultoria de Engenharia Territorial para mandatos e projetos políticos de longo prazo. 
-                          Saia do improviso e entre na era da gestão baseada em evidências.
-                      </p>
-                      <button 
-                          onClick={() => { setActiveTab('gov'); document.getElementById('contato')?.scrollIntoView(); }} 
-                          className="px-8 py-3 bg-[#10B981] hover:bg-[#059669] text-white font-bold rounded-lg transition-colors shadow-lg"
-                      >
-                          Conhecer Consultoria Premium
-                      </button>
-                  </div>
-
-                  {/* Right Block (Card) */}
-                  <div className="flex justify-center lg:justify-end">
-                      <div className="bg-[#111827] border border-slate-800 rounded-2xl p-12 w-full max-w-md aspect-square flex flex-col items-center justify-center text-center shadow-2xl relative">
-                          {/* Icon */}
-                          <div className="mb-6">
-                               <TrendingUp className="text-yellow-500 w-16 h-16" strokeWidth={2} />
-                          </div>
-                          {/* Title */}
-                          <h3 className="text-2xl font-bold text-white mb-4">
-                              Engenharia de Futuro
-                          </h3>
-                          {/* Text */}
-                          <p className="text-slate-400 font-light leading-relaxed">
-                              "Transformar cidades desorganizadas em projetos de nação."
-                          </p>
-                      </div>
-                  </div>
-
-              </div>
-          </div>
-      </section>
-
-      {/* 7. FAQ B2G (Governo) */}
-      <section className="py-20 bg-slate-50">
-        <div className="container mx-auto px-4 max-w-3xl">
-          <h2 className="text-3xl font-bold text-slate-900 mb-10 text-center">Dúvidas sobre Contratação Pública</h2>
-          <div className="space-y-4">
-            {[
-              { q: "A contratação pode ser feita sem licitação?", a: "Sim. Segundo a Lei 14.133/21, serviços de treinamento e aperfeiçoamento de pessoal podem ser contratados por inexigibilidade ou dispensa, dependendo do valor e da especificidade." },
-              { q: "A empresa possui regularidade fiscal?", a: "Absolutamente. Mantemos CNDs federais, estaduais e municipais sempre atualizadas, além de regularidade com o FGTS e Justiça do Trabalho, disponíveis no nosso Portal da Transparência." },
-              { q: "Vocês atendem Câmaras Municipais?", a: "Sim. Temos programas específicos para vereadores e servidores legislativos, focados em Regimento Interno e fiscalização do executivo." }
-            ].map((faq, idx) => (
-              <details key={idx} className="group bg-white rounded-lg shadow-sm border border-slate-200 p-4 cursor-pointer">
-                <summary className="flex justify-between items-center font-semibold text-slate-800 list-none">
-                  {faq.q}
-                  <ChevronDown className="group-open:rotate-180 transition-transform text-emerald-600" />
-                </summary>
-                <p className="text-slate-600 mt-4 leading-relaxed pl-2 border-l-2 border-emerald-500">
-                  {faq.a}
+                {/* Subtítulo */}
+                <p className="text-slate-300 text-lg leading-relaxed max-w-xl font-light border-l-4 border-[#2ECC71] pl-6">
+                  Formação de Lideranças baseada em Engenharia Territorial. Transforme sua cidade com planejamento estratégico e segurança jurídica.
                 </p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* 8. FORMULÁRIO DE CONTATO (WhatsApp Integration) */}
-      <section id="contato" className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
-             <h2 className="text-3xl font-bold text-slate-900 mb-2">Inscrição e Contratação</h2>
-             <p className="text-slate-500">Selecione o seu perfil para prosseguir.</p>
-          </div>
+                {/* Botões */}
+                <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                  <a href="#contato" className="px-8 py-4 bg-[#2ECC71] hover:bg-[#27ae60] text-white font-bold rounded-lg transition-all shadow-lg hover:shadow-[#2ECC71]/30 flex items-center justify-center gap-3 group">
+                    Começar Formação
+                    <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                  </a>
+                  <a href="#contato" onClick={() => setActiveTab('gov')} className="px-8 py-4 bg-transparent border-2 border-[#1B3B66] hover:bg-[#1B3B66] text-white font-bold rounded-lg transition-all flex items-center justify-center gap-3">
+                    <div className="bg-[#1B3B66] p-1 rounded">
+                       <Building2 size={16} />
+                    </div>
+                    Portal B2G (Governo)
+                  </a>
+                </div>
+              </div>
 
-          <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-2xl border border-slate-100 overflow-hidden">
-            {/* Tabs */}
-            <div className="flex border-b border-slate-200">
-              <button 
-                onClick={() => setActiveTab('student')}
-                className={`flex-1 py-4 text-sm font-bold text-center transition-all ${activeTab === 'student' ? 'bg-slate-50 text-[#1B3B66] border-b-2 border-[#1B3B66]' : 'bg-white text-slate-400 hover:text-slate-600'}`}
-              >
-                Sou Aluno / Líder
-              </button>
-              <button 
-                onClick={() => setActiveTab('gov')}
-                className={`flex-1 py-4 text-sm font-bold text-center transition-all ${activeTab === 'gov' ? 'bg-slate-50 text-[#1B3B66] border-b-2 border-[#1B3B66]' : 'bg-white text-slate-400 hover:text-slate-600'}`}
-              >
-                Sou Gestor Público
-              </button>
+              {/* Lado Direito: Visual Cards (Módulos) */}
+              <div className="relative perspective-1000 hidden lg:block">
+                <div className="relative w-full max-w-[600px] h-[500px] transform rotate-y-[-10deg] rotate-x-[5deg] transition-transform duration-700 hover:rotate-0">
+                  
+                  {/* Grid de Cards */}
+                  <div className="grid grid-cols-2 gap-4 h-full">
+                    
+                    {/* Módulo 01 - Verde Petróleo */}
+                    <div className="bg-[#0A3835] rounded-xl p-6 shadow-2xl border-l-4 border-[#F1C40F] flex flex-col justify-between transform translate-y-8 hover:-translate-y-2 transition-transform duration-300">
+                      <div className="text-[#F1C40F] text-xs font-bold uppercase tracking-widest mb-2">Módulo 01</div>
+                      <h3 className="text-white text-xl font-bold leading-tight">Identidade e Ética Pública</h3>
+                      <div className="w-8 h-8 rounded-full bg-white/10 mt-4"></div>
+                    </div>
+
+                    {/* Módulo 06 - Azul Médio */}
+                    <div className="bg-[#1E4F8A] rounded-xl p-6 shadow-2xl flex flex-col justify-between transform hover:-translate-y-2 transition-transform duration-300">
+                      <div className="text-[#2ECC71] text-xs font-bold uppercase tracking-widest mb-2">Módulo 06</div>
+                      <h3 className="text-white text-xl font-bold leading-tight">Gestão Orçamentária</h3>
+                      <div className="w-8 h-8 rounded-full bg-white/10 mt-4"></div>
+                    </div>
+
+                    {/* Módulo 11 - Azul Escuro/Preto */}
+                    <div className="bg-[#0C1527] rounded-xl p-6 shadow-2xl border border-slate-700 flex flex-col justify-between transform translate-y-8 hover:-translate-y-2 transition-transform duration-300">
+                      <div className="text-[#F1C40F] text-xs font-bold uppercase tracking-widest mb-2">Módulo 11</div>
+                      <h3 className="text-white text-xl font-bold leading-tight">Gestão Territorial</h3>
+                      <div className="w-8 h-8 rounded-full bg-white/10 mt-4"></div>
+                    </div>
+
+                    {/* Módulo 12 - Laranja Queimado (Estadista) */}
+                    <div className="bg-[#D98521] rounded-xl p-6 shadow-2xl relative overflow-hidden flex flex-col justify-between transform hover:-translate-y-2 transition-transform duration-300">
+                      <div className="absolute top-0 right-0 w-20 h-20 bg-white/10 rounded-bl-full"></div>
+                      <div className="text-white/80 text-xs font-bold uppercase tracking-widest mb-2">Módulo 12</div>
+                      <h3 className="text-white text-xl font-bold leading-tight">O Caminho do Estadista</h3>
+                      <div className="w-8 h-8 rounded-full bg-white/20 mt-4"></div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
             </div>
+          </section>
 
-            <form onSubmit={handleWhatsAppSubmit} className="p-6 md:p-10 bg-slate-50/30">
-              
-              {/* Balão Informativo - Apenas para Gestor Público */}
-              {activeTab === 'gov' && (
-                <div className="bg-[#F0F6FF] border border-[#BFD7FF] rounded-lg p-4 mb-8 flex items-start gap-3">
-                   <Ribbon className="text-blue-600 mt-0.5 shrink-0" size={20} />
-                   <span className="text-sm text-blue-900 font-medium leading-tight">Habilitação Jurídica (CNAEs 70.20-4-00 e 85.99-6-99). Regularidade fiscal comprovada.</span>
+          {/* 3. FERRAMENTA INTERATIVA (Diagnóstico) */}
+          <section className="py-20 -mt-10 relative z-20">
+            <div className="container mx-auto px-4">
+              <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-8 md:p-12 max-w-4xl mx-auto">
+                <div className="text-center mb-8">
+                  <h2 className="text-2xl font-bold text-slate-800">Termômetro da Gestão 🌡️</h2>
+                  <p className="text-slate-500">Descubra o nível de maturidade técnica do seu gabinete.</p>
                 </div>
-              )}
-              
-              <div className="grid md:grid-cols-2 gap-5 mb-5">
-                <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-600 uppercase">Nome do Responsável</label>
-                  <input required name="name" type="text" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-[#2ECC71] focus:ring-1 focus:ring-[#2ECC71] outline-none transition-all" />
-                </div>
-                {activeTab === 'gov' ? (
-                   <div className="space-y-1">
-                    <label className="text-xs font-bold text-slate-600 uppercase">Cargo</label>
-                    <input name="role" type="text" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-[#2ECC71] focus:ring-1 focus:ring-[#2ECC71] outline-none transition-all" />
-                   </div>
+
+                {!quizFinished ? (
+                  <div className="space-y-6">
+                    <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                      <div 
+                        className="bg-emerald-500 h-full transition-all duration-500" 
+                        style={{width: `${((quizStep + 1) / 3) * 100}%`}} 
+                      />
+                    </div>
+                    
+                    {quizStep === 0 && (
+                      <div className="animate-in fade-in slide-in-from-right duration-300">
+                        <h3 className="text-lg font-semibold mb-4">Como seu gabinete organiza as demandas da população?</h3>
+                        <div className="grid gap-3">
+                          <button onClick={() => setQuizStep(1)} className="p-4 border rounded-lg hover:bg-emerald-50 hover:border-emerald-300 text-left transition-all">A. Anotamos em caderno/planilha solta.</button>
+                          <button onClick={() => setQuizStep(1)} className="p-4 border rounded-lg hover:bg-emerald-50 hover:border-emerald-300 text-left transition-all">B. Usamos WhatsApp pessoal.</button>
+                          <button onClick={() => setQuizStep(1)} className="p-4 border rounded-lg hover:bg-emerald-50 hover:border-emerald-300 text-left transition-all">C. Temos um sistema de CRM/Protocolo.</button>
+                        </div>
+                      </div>
+                    )}
+                     {quizStep === 1 && (
+                      <div className="animate-in fade-in slide-in-from-right duration-300">
+                        <h3 className="text-lg font-semibold mb-4">Qual seu nível de conhecimento sobre a Nova Lei de Licitações (14.133)?</h3>
+                        <div className="grid gap-3">
+                          <button onClick={() => setQuizStep(2)} className="p-4 border rounded-lg hover:bg-emerald-50 hover:border-emerald-300 text-left transition-all">A. Básico/Nenhum.</button>
+                          <button onClick={() => setQuizStep(2)} className="p-4 border rounded-lg hover:bg-emerald-50 hover:border-emerald-300 text-left transition-all">B. Já fiz alguns cursos livres.</button>
+                          <button onClick={() => setQuizStep(2)} className="p-4 border rounded-lg hover:bg-emerald-50 hover:border-emerald-300 text-left transition-all">C. Tenho equipe jurídica especializada.</button>
+                        </div>
+                      </div>
+                    )}
+                     {quizStep === 2 && (
+                      <div className="animate-in fade-in slide-in-from-right duration-300">
+                        <h3 className="text-lg font-semibold mb-4">Você sabe fiscalizar o PPA, LDO e LOA?</h3>
+                        <div className="grid gap-3">
+                          <button onClick={() => setQuizFinished(true)} className="p-4 border rounded-lg hover:bg-emerald-50 hover:border-emerald-300 text-left transition-all">A. Não sei o que significam as siglas.</button>
+                          <button onClick={() => setQuizFinished(true)} className="p-4 border rounded-lg hover:bg-emerald-50 hover:border-emerald-300 text-left transition-all">B. Entendo, mas não sei analisar os números.</button>
+                          <button onClick={() => setQuizFinished(true)} className="p-4 border rounded-lg hover:bg-emerald-50 hover:border-emerald-300 text-left transition-all">C. Apresento emendas regularmente.</button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 ) : (
-                  <div className="space-y-1">
-                    <label className="text-xs font-bold text-slate-600 uppercase">WhatsApp</label>
-                    <input required name="phone" type="tel" placeholder="(00) 00000-0000" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-[#2ECC71] focus:ring-1 focus:ring-[#2ECC71] outline-none transition-all" />
+                  <div className="text-center animate-in zoom-in duration-300">
+                    <div className="w-16 h-16 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Award size={32} />
+                    </div>
+                    <h3 className="text-2xl font-bold text-slate-800 mb-2">Diagnóstico Preliminar Concluído!</h3>
+                    <p className="text-slate-600 mb-6">Identificamos oportunidades críticas de melhoria na sua gestão técnica. Receba o relatório completo e um plano de ação.</p>
+                    <div className="flex max-w-md mx-auto gap-2">
+                      <input type="email" placeholder="Seu melhor e-mail" className="flex-1 px-4 py-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+                      <button className="px-6 py-3 bg-slate-900 text-white font-bold rounded-lg hover:bg-slate-800">Receber</button>
+                    </div>
                   </div>
                 )}
               </div>
+            </div>
+          </section>
 
-              {activeTab === 'gov' && (
-                 <div className="space-y-1 mb-5">
-                    <label className="text-xs font-bold text-slate-600 uppercase">Órgão Público</label>
-                    <input name="org" type="text" placeholder="Ex: Prefeitura Municipal de..." className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-[#2ECC71] focus:ring-1 focus:ring-[#2ECC71] outline-none transition-all" />
-                 </div>
-              )}
+          {/* 4. GRADE TÉCNICA: 12 MÓDULOS (Novo Design) */}
+          <section id="cursos" className="py-20 bg-slate-50">
+            <div className="container mx-auto px-4">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl font-bold text-slate-900 mb-2">Grade Técnica: 12 Módulos</h2>
+                <p className="text-slate-500 max-w-2xl mx-auto">Da Lei Orgânica à Defesa Civil. Um currículo completo para a modernização administrativa.</p>
+              </div>
 
-              {/* Campos adicionais de contato para Gov ou Aluno (se não renderizado acima) */}
-              <div className="space-y-1 mb-6">
-                <label className="text-xs font-bold text-slate-600 uppercase">E-mail Corporativo/Pessoal</label>
-                <input required name="email" type="email" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-[#2ECC71] focus:ring-1 focus:ring-[#2ECC71] outline-none transition-all" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {[
+                  { 
+                    month: "MÊS 01", 
+                    title: "A Identidade do Gestor", 
+                    desc: "Ética e Princípios da Administração", 
+                    colorClass: "border-teal-400", 
+                    icon: <User className="text-teal-400" size={24} /> 
+                  },
+                  { 
+                    month: "MÊS 02", 
+                    title: "Lei Orgânica e Poder", 
+                    desc: "Estrutura Legal do Município", 
+                    colorClass: "border-blue-500", 
+                    icon: <FileText className="text-blue-500" size={24} /> 
+                  },
+                  { 
+                    month: "MÊS 03", 
+                    title: "Técnica Legislativa", 
+                    desc: "Processo de Criação de Leis", 
+                    colorClass: "border-yellow-500", 
+                    icon: <Landmark className="text-yellow-500" size={24} /> 
+                  },
+                  { 
+                    month: "MÊS 04", 
+                    title: "Planejamento Urbano", 
+                    desc: "Os 32 Planos Obrigatórios", 
+                    colorClass: "border-purple-500", 
+                    icon: <MapPin className="text-purple-500" size={24} /> 
+                  },
+                  { 
+                    month: "MÊS 05", 
+                    title: "Cidades Inteligentes", 
+                    desc: "Tecnologia e Eficiência", 
+                    colorClass: "border-cyan-600", 
+                    icon: <Lightbulb className="text-cyan-600" size={24} /> 
+                  },
+                  { 
+                    month: "MÊS 06", 
+                    title: "Gestão Orçamentária", 
+                    desc: "PPA, LDO e LOA na Prática", 
+                    colorClass: "border-emerald-500", 
+                    icon: <PieChart className="text-emerald-500" size={24} /> 
+                  },
+                  { 
+                    month: "MÊS 07", 
+                    title: "Infraestrutura Urbana", 
+                    desc: "Ordenamento e Zeladoria", 
+                    colorClass: "border-green-700", 
+                    icon: <Leaf className="text-green-700" size={24} /> 
+                  },
+                  { 
+                    month: "MÊS 08", 
+                    title: "Saúde e Educação", 
+                    desc: "Gestão de Políticas Públicas", 
+                    colorClass: "border-red-500", 
+                    icon: <Heart className="text-red-500" size={24} /> 
+                  },
+                  { 
+                    month: "MÊS 09", 
+                    title: "Desenvolvimento Local", 
+                    desc: "Economia e Emprego", 
+                    colorClass: "border-orange-500", 
+                    icon: <Link className="text-orange-500" size={24} /> 
+                  },
+                  { 
+                    month: "MÊS 10", 
+                    title: "Defesa Civil e Riscos", 
+                    desc: "Segurança e Prevenção", 
+                    colorClass: "border-slate-500", 
+                    icon: <Shield className="text-slate-500" size={24} /> 
+                  },
+                  { 
+                    month: "MÊS 11", 
+                    title: "Gestão Territorial", 
+                    desc: "Descentralização e Redes", 
+                    colorClass: "border-indigo-400", 
+                    icon: <Share2 className="text-indigo-400" size={24} /> 
+                  },
+                  { 
+                    month: "MÊS 12", 
+                    title: "O Caminho do Estadista", 
+                    desc: "Liderança Estratégica 2028", 
+                    colorClass: "border-yellow-600", 
+                    icon: <TrendingUp className="text-yellow-600" size={24} /> 
+                  },
+                ].map((module, idx) => (
+                  <div key={idx} className="bg-white rounded-xl shadow-sm border border-slate-100 relative overflow-hidden group hover:shadow-lg transition-all duration-300 flex flex-col p-6 h-full">
+                    {/* Borda Superior Colorida */}
+                    <div className={`absolute top-0 left-0 w-full h-1.5 ${module.colorClass.replace('border', 'bg')}`}></div>
+                    
+                    <div className="flex justify-between items-start mb-4">
+                      <span className="text-xs text-slate-400 font-bold uppercase tracking-wider mt-1">{module.month}</span>
+                      <div className="p-2 bg-slate-50 rounded-lg group-hover:bg-slate-100 transition-colors">
+                        <div className="transform transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6">
+                          {module.icon}
+                        </div>
+                      </div>
+                    </div>
+
+                    <h3 className="font-bold text-slate-800 text-lg leading-tight mb-2">{module.title}</h3>
+                    <p className="text-sm text-slate-500 leading-relaxed mb-6">{module.desc}</p>
+
+                    <div className="mt-auto pt-4 border-t border-slate-50 flex items-center gap-2 text-emerald-600 font-semibold text-xs uppercase tracking-wide">
+                      <BookOpen size={14} />
+                      Livro + Mentoria
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* 5. SEÇÃO CERTIFICAÇÃO (Prova Social + Mockup CSS) */}
+          <section className="py-20 bg-white">
+            <div className="container mx-auto px-4 flex flex-col md:flex-row items-center gap-16">
+              <div className="md:w-1/2">
+                <h2 className="text-3xl font-bold text-slate-900 mb-6">Certificação com Validade Nacional</h2>
+                <p className="text-slate-600 mb-6 text-lg">
+                  A 3ª Via Social opera sob CNAE de Ensino, garantindo que nossos certificados sejam aceitos para progressão de carreira e comprovação de títulos.
+                </p>
+                <ul className="space-y-4">
+                  <li className="flex items-center gap-3">
+                    <CheckCircle className="text-emerald-500" size={20} />
+                    <span className="text-slate-700">QR Code de validação digital anti-fraude.</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <CheckCircle className="text-emerald-500" size={20} />
+                    <span className="text-slate-700">Carga horária detalhada no verso.</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <CheckCircle className="text-emerald-500" size={20} />
+                    <span className="text-slate-700">Assinatura de especialistas mestres e doutores.</span>
+                  </li>
+                </ul>
               </div>
               
-              {activeTab === 'gov' && (
-                  <div className="space-y-1 mb-6">
-                    <label className="text-xs font-bold text-slate-600 uppercase">WhatsApp</label>
-                    <input required name="phone" type="tel" placeholder="(00) 00000-0000" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-[#2ECC71] focus:ring-1 focus:ring-[#2ECC71] outline-none transition-all" />
+              {/* Mockup de Certificado CSS */}
+              <div className="md:w-1/2 w-full flex justify-center">
+                <div className="relative w-full max-w-md bg-slate-50 border-8 border-double border-yellow-600 p-8 shadow-2xl transform rotate-2 hover:rotate-0 transition-all duration-500">
+                  <div className="absolute top-0 left-0 w-full h-full border border-slate-300 m-2 pointer-events-none" />
+                  <div className="text-center border-b-2 border-slate-200 pb-4 mb-4">
+                    <div className="text-3xl font-serif text-slate-800 font-bold uppercase tracking-widest">Certificado</div>
+                    <div className="text-xs text-slate-500 uppercase mt-1">De Conclusão de Curso</div>
                   </div>
-              )}
-
-              <button type="submit" className={`w-full py-4 rounded-xl font-bold text-white shadow-lg transform active:scale-95 transition-all flex items-center justify-center gap-2 ${activeTab === 'student' ? 'bg-[#2ECC71] hover:bg-[#27ae60]' : 'bg-[#031226] hover:bg-[#1B3B66]'}`}>
-                <Phone size={20} />
-                {activeTab === 'student' ? 'Enviar para WhatsApp' : 'Solicitar Proposta Técnica'}
-              </button>
-            </form>
-          </div>
-        </div>
-      </section>
-
-      {/* 9. FOOTER */}
-      <footer className="bg-slate-900 text-slate-400 py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-12 mb-12">
-            <div>
-              <div className="flex items-center gap-3 mb-6">
-                 {/* Logo Footer Simples */}
-                 <div className="flex items-end gap-1 h-6">
-                    <div className="w-1.5 h-4 bg-[#1B3B66] rounded-t-[1px]"></div>
-                    <div className="w-1.5 h-6 bg-[#2ECC71] rounded-t-[1px]"></div>
-                    <div className="w-1.5 h-5 bg-[#F1C40F] rounded-t-[1px]"></div>
-                 </div>
-                 <span className="text-white font-bold text-lg tracking-tight">3ª VIA SOCIAL</span>
-              </div>
-              <p className="text-sm leading-relaxed mb-6">
-                Consultoria e educação política focada em resultados técnicos e fortalecimento democrático.
-              </p>
-              <div className="flex gap-4">
-                <a 
-                  href="https://www.facebook.com/joaorumpelgestor" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#2ECC71] hover:text-white transition-colors"
-                  aria-label="Facebook"
-                >
-                  <Facebook size={18}/>
-                </a>
-                <a 
-                  href="https://www.instagram.com/movimento3via/" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#2ECC71] hover:text-white transition-colors"
-                  aria-label="Instagram"
-                >
-                  <Instagram size={18}/>
-                </a>
-                <a 
-                  href="https://wa.me/5551995347903?text=Ol%C3%A1%20achei%20seu%20*site%20no%20Google!*" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#2ECC71] hover:text-white transition-colors"
-                  aria-label="WhatsApp"
-                >
-                  <Phone size={18}/>
-                </a>
+                  <div className="text-center space-y-4">
+                    <p className="text-sm text-slate-600">Certificamos que</p>
+                    <p className="text-2xl font-script text-emerald-800 font-bold italic">Excelentíssimo Gestor</p>
+                    <p className="text-sm text-slate-600">concluiu com êxito a formação em</p>
+                    <p className="font-bold text-slate-900 uppercase">Alta Gestão Pública</p>
+                  </div>
+                  <div className="flex justify-between items-end mt-12 pt-4 border-t border-slate-200">
+                    <div className="text-center">
+                       <div className="w-24 h-px bg-slate-800 mb-2"></div>
+                       <p className="text-[10px] uppercase text-slate-500">Diretor Acadêmico</p>
+                    </div>
+                    <div className="w-12 h-12 bg-yellow-500/20 rounded-full flex items-center justify-center border border-yellow-600 text-yellow-700">
+                      <Award size={24} />
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            
-            <div>
-              <h4 className="text-white font-bold mb-6 uppercase text-sm tracking-wider">Institucional</h4>
-              <ul className="space-y-3 text-sm">
-                <li><a href="#" className="hover:text-[#2ECC71] transition-colors">Sobre Nós</a></li>
-                <li><a href="#" className="hover:text-[#2ECC71] transition-colors">Corpo Docente</a></li>
-                <li><a href="#" className="hover:text-[#2ECC71] transition-colors">Política de Privacidade</a></li>
-                <li><button onClick={toggleModal} className="hover:text-[#2ECC71] transition-colors text-left">Transparência</button></li>
-              </ul>
-            </div>
+          </section>
 
-            <div>
-              <h4 className="text-white font-bold mb-6 uppercase text-sm tracking-wider">Contato</h4>
-              <ul className="space-y-3 text-sm">
-                <li>Brasília - DF</li>
-                <li>contato@3viasocial.com.br</li>
-                <li>(51) 99534-7903</li>
-              </ul>
-            </div>
+          {/* 6. SEÇÃO ESTADISTA 2028 */}
+          <section className="py-24 bg-[#081121] relative overflow-hidden flex items-center">
+              {/* Diagonal Line Effect */}
+              <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                  <div className="absolute top-1/2 left-[-10%] w-[120%] h-[1px] bg-gradient-to-r from-transparent via-slate-500/30 to-transparent transform -rotate-6"></div>
+              </div>
 
-            <div>
-              <h4 className="text-white font-bold mb-6 uppercase text-sm tracking-wider">Diário Oficial da Gestão</h4>
-              <p className="text-sm mb-4">Receba análises semanais no seu e-mail.</p>
-              <div className="flex gap-2">
-                <input type="email" placeholder="E-mail" className="bg-slate-800 border-none rounded px-3 py-2 text-sm w-full focus:ring-1 focus:ring-[#2ECC71] outline-none text-white" />
-                <button className="bg-[#2ECC71] text-white rounded px-3 hover:bg-[#27ae60]"><ChevronRight size={16}/></button>
+              <div className="container mx-auto px-4 relative z-10">
+                  <div className="grid lg:grid-cols-2 gap-16 items-center">
+                      
+                      {/* Left Block */}
+                      <div className="text-left">
+                          <span className="inline-block bg-yellow-600 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-6">
+                              Alta Performance
+                          </span>
+                          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+                              O Caminho do <br/>Estadista 2028
+                          </h2>
+                          <p className="text-slate-300 text-lg leading-relaxed mb-8 max-w-xl">
+                              Consultoria de Engenharia Territorial para mandatos e projetos políticos de longo prazo. 
+                              Saia do improviso e entre na era da gestão baseada em evidências.
+                          </p>
+                          <button 
+                              onClick={() => { setActiveTab('gov'); document.getElementById('contato')?.scrollIntoView(); }} 
+                              className="px-8 py-3 bg-[#10B981] hover:bg-[#059669] text-white font-bold rounded-lg transition-colors shadow-lg"
+                          >
+                              Conhecer Consultoria Premium
+                          </button>
+                      </div>
+
+                      {/* Right Block (Card) */}
+                      <div className="flex justify-center lg:justify-end">
+                          <div className="bg-[#111827] border border-slate-800 rounded-2xl p-12 w-full max-w-md aspect-square flex flex-col items-center justify-center text-center shadow-2xl relative">
+                              {/* Icon */}
+                              <div className="mb-6">
+                                   <TrendingUp className="text-yellow-500 w-16 h-16" strokeWidth={2} />
+                              </div>
+                              {/* Title */}
+                              <h3 className="text-2xl font-bold text-white mb-4">
+                                  Engenharia de Futuro
+                              </h3>
+                              {/* Text */}
+                              <p className="text-slate-400 font-light leading-relaxed">
+                                  "Transformar cidades desorganizadas em projetos de nação."
+                              </p>
+                          </div>
+                      </div>
+
+                  </div>
+              </div>
+          </section>
+
+          {/* 7. FAQ B2G (Governo) */}
+          <section className="py-20 bg-slate-50">
+            <div className="container mx-auto px-4 max-w-3xl">
+              <h2 className="text-3xl font-bold text-slate-900 mb-10 text-center">Dúvidas sobre Contratação Pública</h2>
+              <div className="space-y-4">
+                {[
+                  { q: "A contratação pode ser feita sem licitação?", a: "Sim. Segundo a Lei 14.133/21, serviços de treinamento e aperfeiçoamento de pessoal podem ser contratados por inexigibilidade ou dispensa, dependendo do valor e da especificidade." },
+                  { q: "A empresa possui regularidade fiscal?", a: "Absolutamente. Mantemos CNDs federais, estaduais e municipais sempre atualizadas, além de regularidade com o FGTS e Justiça do Trabalho, disponíveis no nosso Portal da Transparência." },
+                  { q: "Vocês atendem Câmaras Municipais?", a: "Sim. Temos programas específicos para vereadores e servidores legislativos, focados em Regimento Interno e fiscalização do executivo." }
+                ].map((faq, idx) => (
+                  <details key={idx} className="group bg-white rounded-lg shadow-sm border border-slate-200 p-4 cursor-pointer">
+                    <summary className="flex justify-between items-center font-semibold text-slate-800 list-none">
+                      {faq.q}
+                      <ChevronDown className="group-open:rotate-180 transition-transform text-emerald-600" />
+                    </summary>
+                    <p className="text-slate-600 mt-4 leading-relaxed pl-2 border-l-2 border-emerald-500">
+                      {faq.a}
+                    </p>
+                  </details>
+                ))}
               </div>
             </div>
-          </div>
-          
-          {/* Rodapé Customizado - Suprema Sites Express */}
-          <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
-            <p>&copy; 2024 3ª Via Social. Todos os direitos reservados.</p>
-            
-            <div className="flex items-center gap-2 mt-4 md:mt-0 bg-slate-800/50 px-4 py-2 rounded-full border border-slate-700">
-              <span>Desenvolvido</span>
-              <Heart size={14} className="text-red-500 animate-pulse fill-current" /> 
-              <span>por</span>
-              <a 
-                href="https://supremasite.com.br" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="font-bold text-[#2ECC71] hover:text-white transition-colors underline decoration-[#2ECC71]/30 underline-offset-2"
-              >
-                Suprema Sites Express
-              </a>
+          </section>
+
+          {/* 8. FORMULÁRIO DE CONTATO (WhatsApp Integration) */}
+          <section id="contato" className="py-20 bg-white">
+            <div className="container mx-auto px-4">
+              <div className="text-center mb-10">
+                 <h2 className="text-3xl font-bold text-slate-900 mb-2">Inscrição e Contratação</h2>
+                 <p className="text-slate-500">Selecione o seu perfil para prosseguir.</p>
+              </div>
+
+              <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-2xl border border-slate-100 overflow-hidden">
+                {/* Tabs */}
+                <div className="flex border-b border-slate-200">
+                  <button 
+                    onClick={() => setActiveTab('student')}
+                    className={`flex-1 py-4 text-sm font-bold text-center transition-all ${activeTab === 'student' ? 'bg-slate-50 text-[#1B3B66] border-b-2 border-[#1B3B66]' : 'bg-white text-slate-400 hover:text-slate-600'}`}
+                  >
+                    Sou Aluno / Líder
+                  </button>
+                  <button 
+                    onClick={() => setActiveTab('gov')}
+                    className={`flex-1 py-4 text-sm font-bold text-center transition-all ${activeTab === 'gov' ? 'bg-slate-50 text-[#1B3B66] border-b-2 border-[#1B3B66]' : 'bg-white text-slate-400 hover:text-slate-600'}`}
+                  >
+                    Sou Gestor Público
+                  </button>
+                </div>
+
+                <form onSubmit={handleWhatsAppSubmit} className="p-6 md:p-10 bg-slate-50/30">
+                  
+                  {/* Balão Informativo - Apenas para Gestor Público */}
+                  {activeTab === 'gov' && (
+                    <div className="bg-[#F0F6FF] border border-[#BFD7FF] rounded-lg p-4 mb-8 flex items-start gap-3">
+                       <Ribbon className="text-blue-600 mt-0.5 shrink-0" size={20} />
+                       <span className="text-sm text-blue-900 font-medium leading-tight">Habilitação Jurídica (CNAEs 70.20-4-00 e 85.99-6-99). Regularidade fiscal comprovada.</span>
+                    </div>
+                  )}
+                  
+                  <div className="grid md:grid-cols-2 gap-5 mb-5">
+                    <div className="space-y-1">
+                      <label className="text-xs font-bold text-slate-600 uppercase">Nome do Responsável</label>
+                      <input required name="name" type="text" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-[#2ECC71] focus:ring-1 focus:ring-[#2ECC71] outline-none transition-all" />
+                    </div>
+                    {activeTab === 'gov' ? (
+                       <div className="space-y-1">
+                        <label className="text-xs font-bold text-slate-600 uppercase">Cargo</label>
+                        <input name="role" type="text" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-[#2ECC71] focus:ring-1 focus:ring-[#2ECC71] outline-none transition-all" />
+                       </div>
+                    ) : (
+                      <div className="space-y-1">
+                        <label className="text-xs font-bold text-slate-600 uppercase">WhatsApp</label>
+                        <input required name="phone" type="tel" placeholder="(00) 00000-0000" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-[#2ECC71] focus:ring-1 focus:ring-[#2ECC71] outline-none transition-all" />
+                      </div>
+                    )}
+                  </div>
+
+                  {activeTab === 'gov' && (
+                     <div className="space-y-1 mb-5">
+                        <label className="text-xs font-bold text-slate-600 uppercase">Órgão Público</label>
+                        <input name="org" type="text" placeholder="Ex: Prefeitura Municipal de..." className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-[#2ECC71] focus:ring-1 focus:ring-[#2ECC71] outline-none transition-all" />
+                     </div>
+                  )}
+
+                  {/* Campos adicionais de contato para Gov ou Aluno (se não renderizado acima) */}
+                  <div className="space-y-1 mb-6">
+                    <label className="text-xs font-bold text-slate-600 uppercase">E-mail Corporativo/Pessoal</label>
+                    <input required name="email" type="email" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-[#2ECC71] focus:ring-1 focus:ring-[#2ECC71] outline-none transition-all" />
+                  </div>
+                  
+                  {activeTab === 'gov' && (
+                      <div className="space-y-1 mb-6">
+                        <label className="text-xs font-bold text-slate-600 uppercase">WhatsApp</label>
+                        <input required name="phone" type="tel" placeholder="(00) 00000-0000" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-[#2ECC71] focus:ring-1 focus:ring-[#2ECC71] outline-none transition-all" />
+                      </div>
+                  )}
+
+                  <button type="submit" className={`w-full py-4 rounded-xl font-bold text-white shadow-lg transform active:scale-95 transition-all flex items-center justify-center gap-2 ${activeTab === 'student' ? 'bg-[#2ECC71] hover:bg-[#27ae60]' : 'bg-[#031226] hover:bg-[#1B3B66]'}`}>
+                    <Phone size={20} />
+                    {activeTab === 'student' ? 'Enviar para WhatsApp' : 'Solicitar Proposta Técnica'}
+                  </button>
+                </form>
+              </div>
             </div>
-          </div>
-        </div>
-      </footer>
+          </section>
+
+          {/* 9. FOOTER */}
+          <footer className="bg-slate-900 text-slate-400 py-16">
+            <div className="container mx-auto px-4">
+              <div className="grid md:grid-cols-4 gap-12 mb-12">
+                <div>
+                  <div className="flex items-center gap-3 mb-6">
+                     {/* Logo Footer Simples */}
+                     <div className="flex items-end gap-1 h-6">
+                        <div className="w-1.5 h-4 bg-[#1B3B66] rounded-t-[1px]"></div>
+                        <div className="w-1.5 h-6 bg-[#2ECC71] rounded-t-[1px]"></div>
+                        <div className="w-1.5 h-5 bg-[#F1C40F] rounded-t-[1px]"></div>
+                     </div>
+                     <span className="text-white font-bold text-lg tracking-tight">3ª VIA SOCIAL</span>
+                  </div>
+                  <p className="text-sm leading-relaxed mb-6">
+                    Consultoria e educação política focada em resultados técnicos e fortalecimento democrático.
+                  </p>
+                  <div className="flex gap-4">
+                    <a 
+                      href="https://www.facebook.com/joaorumpelgestor" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#2ECC71] hover:text-white transition-colors"
+                      aria-label="Facebook"
+                    >
+                      <Facebook size={18}/>
+                    </a>
+                    <a 
+                      href="https://www.instagram.com/movimento3via/" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#2ECC71] hover:text-white transition-colors"
+                      aria-label="Instagram"
+                    >
+                      <Instagram size={18}/>
+                    </a>
+                    <a 
+                      href="https://wa.me/5551995347903?text=Ol%C3%A1%20achei%20seu%20*site%20no%20Google!*" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#2ECC71] hover:text-white transition-colors"
+                      aria-label="WhatsApp"
+                    >
+                      <Phone size={18}/>
+                    </a>
+                  </div>
+                </div>
+                
+                <div>
+                  <h4 className="text-white font-bold mb-6 uppercase text-sm tracking-wider">Institucional</h4>
+                  <ul className="space-y-3 text-sm">
+                    <li><a href="#" className="hover:text-[#2ECC71] transition-colors">Sobre Nós</a></li>
+                    <li><a href="#" className="hover:text-[#2ECC71] transition-colors">Corpo Docente</a></li>
+                    <li><a href="#" className="hover:text-[#2ECC71] transition-colors">Política de Privacidade</a></li>
+                    <li><button onClick={toggleModal} className="hover:text-[#2ECC71] transition-colors text-left">Transparência</button></li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="text-white font-bold mb-6 uppercase text-sm tracking-wider">Contato</h4>
+                  <ul className="space-y-3 text-sm">
+                    <li>Brasília - DF</li>
+                    <li>contato@3viasocial.com.br</li>
+                    <li>(51) 99534-7903</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="text-white font-bold mb-6 uppercase text-sm tracking-wider">Diário Oficial da Gestão</h4>
+                  <p className="text-sm mb-4">Receba análises semanais no seu e-mail.</p>
+                  <div className="flex gap-2">
+                    <input type="email" placeholder="E-mail" className="bg-slate-800 border-none rounded px-3 py-2 text-sm w-full focus:ring-1 focus:ring-[#2ECC71] outline-none text-white" />
+                    <button className="bg-[#2ECC71] text-white rounded px-3 hover:bg-[#27ae60]"><ChevronRight size={16}/></button>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Rodapé Customizado - Suprema Sites Express */}
+              <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
+                <p>&copy; 2024 3ª Via Social. Todos os direitos reservados.</p>
+                
+                <div className="flex items-center gap-2 mt-4 md:mt-0 bg-slate-800/50 px-4 py-2 rounded-full border border-slate-700">
+                  <span>Desenvolvido</span>
+                  <Heart size={14} className="text-red-500 animate-pulse fill-current" /> 
+                  <span>por</span>
+                  <a 
+                    href="https://supremasite.com.br" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="font-bold text-[#2ECC71] hover:text-white transition-colors underline decoration-[#2ECC71]/30 underline-offset-2"
+                  >
+                    Suprema Sites Express
+                  </a>
+                </div>
+              </div>
+            </div>
+          </footer>
+        </>
+      )}
 
       {/* 10. MODAL DE TRANSPARÊNCIA */}
       {isModalOpen && (
