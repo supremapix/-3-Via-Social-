@@ -10,11 +10,17 @@ declare global {
 }
 
 const ManagementPanel: React.FC = () => {
-  // Refs para Gráficos
+  // Refs para Elementos Canvas
   const riskChartRef = useRef<HTMLCanvasElement>(null);
   const resourceChartRef = useRef<HTMLCanvasElement>(null);
   const limpeChartRef = useRef<HTMLCanvasElement>(null);
   const radarCityChartRef = useRef<HTMLCanvasElement>(null);
+
+  // Refs para Instâncias dos Gráficos (para destruição correta)
+  const riskChartInstance = useRef<any>(null);
+  const resourceChartInstance = useRef<any>(null);
+  const limpeChartInstance = useRef<any>(null);
+  const radarCityChartInstance = useRef<any>(null);
 
   // States para Ferramentas AI
   const [loading, setLoading] = useState<string | null>(null);
@@ -82,107 +88,116 @@ const ManagementPanel: React.FC = () => {
         return lines;
     };
 
-    // 1. Risk Chart
-    if (riskChartRef.current && window.Chart) {
-      new window.Chart(riskChartRef.current, {
-        type: 'bar',
-        data: {
-          labels: ['Gestão Improvisada', 'Gestão Técnica'],
-          datasets: [{
-            label: 'Risco de Rejeição de Contas (%)',
-            data: [78, 5],
-            backgroundColor: ['#ef4444', '#059669'],
-            borderRadius: 6,
-            barPercentage: 0.6
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { legend: { display: false }, ...tooltipPlugin },
-          scales: { y: { beginAtZero: true, max: 100, title: { display: true, text: 'Probabilidade de Rejeição (%)' } } }
+    // Função auxiliar para criar/recriar gráficos
+    const createCharts = () => {
+        // 1. Risk Chart
+        if (riskChartRef.current && window.Chart) {
+            if (riskChartInstance.current) riskChartInstance.current.destroy();
+            riskChartInstance.current = new window.Chart(riskChartRef.current, {
+                type: 'bar',
+                data: {
+                labels: ['Gestão Improvisada', 'Gestão Técnica'],
+                datasets: [{
+                    label: 'Risco de Rejeição de Contas (%)',
+                    data: [78, 5],
+                    backgroundColor: ['#ef4444', '#059669'],
+                    borderRadius: 6,
+                    barPercentage: 0.6
+                }]
+                },
+                options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false }, ...tooltipPlugin },
+                scales: { y: { beginAtZero: true, max: 100, title: { display: true, text: 'Probabilidade de Rejeição (%)' } } }
+                }
+            });
         }
-      });
-    }
 
-    // 2. Resource Chart
-    if (resourceChartRef.current && window.Chart) {
-      new window.Chart(resourceChartRef.current, {
-        type: 'bar',
-        data: {
-          labels: [wrapLabel('Sem Planos Obrigatórios'), wrapLabel('Com Planos Aprovados')],
-          datasets: [{
-            label: 'Recursos Federais Acessíveis (R$ Milhões)',
-            data: [2.5, 45.0],
-            backgroundColor: ['#94a3b8', '#1d4ed8'],
-            borderRadius: 6,
-            barPercentage: 0.6
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { legend: { display: false }, ...tooltipPlugin },
-          scales: { y: { beginAtZero: true, title: { display: true, text: 'Potencial de Captação (R$ Mi)' } } }
+        // 2. Resource Chart
+        if (resourceChartRef.current && window.Chart) {
+            if (resourceChartInstance.current) resourceChartInstance.current.destroy();
+            resourceChartInstance.current = new window.Chart(resourceChartRef.current, {
+                type: 'bar',
+                data: {
+                labels: [wrapLabel('Sem Planos Obrigatórios'), wrapLabel('Com Planos Aprovados')],
+                datasets: [{
+                    label: 'Recursos Federais Acessíveis (R$ Milhões)',
+                    data: [2.5, 45.0],
+                    backgroundColor: ['#94a3b8', '#1d4ed8'],
+                    borderRadius: 6,
+                    barPercentage: 0.6
+                }]
+                },
+                options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false }, ...tooltipPlugin },
+                scales: { y: { beginAtZero: true, title: { display: true, text: 'Potencial de Captação (R$ Mi)' } } }
+                }
+            });
         }
-      });
-    }
 
-    // 3. LIMPE Chart
-    if (limpeChartRef.current && window.Chart) {
-      new window.Chart(limpeChartRef.current, {
-        type: 'doughnut',
-        data: {
-          labels: ['Legalidade', 'Impessoalidade', 'Moralidade', 'Publicidade', 'Eficiência'],
-          datasets: [{
-            data: [20, 20, 20, 20, 20],
-            backgroundColor: ['#1e3a8a', '#1d4ed8', '#059669', '#10b981', '#eab308'],
-            borderWidth: 0
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { legend: { position: 'right' }, ...tooltipPlugin }
+        // 3. LIMPE Chart
+        if (limpeChartRef.current && window.Chart) {
+            if (limpeChartInstance.current) limpeChartInstance.current.destroy();
+            limpeChartInstance.current = new window.Chart(limpeChartRef.current, {
+                type: 'doughnut',
+                data: {
+                labels: ['Legalidade', 'Impessoalidade', 'Moralidade', 'Publicidade', 'Eficiência'],
+                datasets: [{
+                    data: [20, 20, 20, 20, 20],
+                    backgroundColor: ['#1e3a8a', '#1d4ed8', '#059669', '#10b981', '#eab308'],
+                    borderWidth: 0
+                }]
+                },
+                options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'right' }, ...tooltipPlugin }
+                }
+            });
         }
-      });
-    }
 
-    // 4. Radar Chart
-    if (radarCityChartRef.current && window.Chart) {
-      new window.Chart(radarCityChartRef.current, {
-        type: 'radar',
-        data: {
-          labels: ['Planeamento', 'Saneamento', 'Tecnologia', 'Transparência', 'Mobilidade', 'Defesa Civil'],
-          datasets: [{
-            label: 'Cidade Tradicional',
-            data: [30, 40, 20, 50, 35, 25],
-            backgroundColor: 'rgba(148, 163, 184, 0.2)',
-            borderColor: '#94a3b8',
-            pointBackgroundColor: '#94a3b8'
-          }, {
-            label: 'Cidade 3ª Via (Técnica)',
-            data: [95, 90, 85, 100, 80, 90],
-            backgroundColor: 'rgba(5, 150, 105, 0.2)',
-            borderColor: '#059669',
-            pointBackgroundColor: '#059669'
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { ...tooltipPlugin },
-          scales: {
-            r: {
-              angleLines: { color: '#e2e8f0' },
-              grid: { color: '#e2e8f0' },
-              suggestedMin: 0,
-              suggestedMax: 100
-            }
-          }
+        // 4. Radar Chart
+        if (radarCityChartRef.current && window.Chart) {
+            if (radarCityChartInstance.current) radarCityChartInstance.current.destroy();
+            radarCityChartInstance.current = new window.Chart(radarCityChartRef.current, {
+                type: 'radar',
+                data: {
+                labels: ['Planeamento', 'Saneamento', 'Tecnologia', 'Transparência', 'Mobilidade', 'Defesa Civil'],
+                datasets: [{
+                    label: 'Cidade Tradicional',
+                    data: [30, 40, 20, 50, 35, 25],
+                    backgroundColor: 'rgba(148, 163, 184, 0.2)',
+                    borderColor: '#94a3b8',
+                    pointBackgroundColor: '#94a3b8'
+                }, {
+                    label: 'Cidade 3ª Via (Técnica)',
+                    data: [95, 90, 85, 100, 80, 90],
+                    backgroundColor: 'rgba(5, 150, 105, 0.2)',
+                    borderColor: '#059669',
+                    pointBackgroundColor: '#059669'
+                }]
+                },
+                options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { ...tooltipPlugin },
+                scales: {
+                    r: {
+                    angleLines: { color: '#e2e8f0' },
+                    grid: { color: '#e2e8f0' },
+                    suggestedMin: 0,
+                    suggestedMax: 100
+                    }
+                }
+                }
+            });
         }
-      });
-    }
+    };
+
+    createCharts();
 
     // 5. Plotly Pyramid
     if (window.Plotly && document.getElementById('pyramidDiv')) {
@@ -225,6 +240,14 @@ const ManagementPanel: React.FC = () => {
         };
         window.Plotly.newPlot('scatterDiv', [scatterData], scatterLayout, {responsive: true, displayModeBar: false});
     }
+
+    // Cleanup na desmontagem
+    return () => {
+        if (riskChartInstance.current) riskChartInstance.current.destroy();
+        if (resourceChartInstance.current) resourceChartInstance.current.destroy();
+        if (limpeChartInstance.current) limpeChartInstance.current.destroy();
+        if (radarCityChartInstance.current) radarCityChartInstance.current.destroy();
+    };
 
   }, []);
 
@@ -632,7 +655,7 @@ const ManagementPanel: React.FC = () => {
                         <h4 class="font-bold text-slate-900">Tecnologia (Smart Cities)</h4>
                         <p class="text-sm text-slate-600 mt-1">Implementação de Governo Digital e conectividade, reduzindo custos operacionais da máquina pública.</p>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-yellow-500">
+                    <div className="bg-white p-6 rounded-lg shadow-sm border-l-4 border-yellow-500">
                         <h4 class="font-bold text-slate-900">Resiliência (Defesa Civil)</h4>
                         <p class="text-sm text-slate-600 mt-1">Mapeamento de riscos e protocolos de crise aumentam a capacidade de resposta a desastres climáticos.</p>
                     </div>
