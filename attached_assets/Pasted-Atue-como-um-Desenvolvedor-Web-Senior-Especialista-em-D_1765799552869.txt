@@ -1,0 +1,50 @@
+Atue como um Desenvolvedor Web Senior Especialista em Dashboards Governamentais e Integração de IA.
+
+A sua tarefa é criar um **Single Page Application (SPA)** num único arquivo HTML (`public_management_dashboard.html`) para o "Painel de Gestão Pública de Alta Performance | 3ª Via Social".
+
+**REQUISITOS TÉCNICOS:**
+1.  **Bibliotecas (via CDN):** Tailwind CSS (estilização), Chart.js (gráficos padrão), Plotly.js (gráficos complexos como Pirâmide e Scatter), Google Fonts (Fonte 'Inter').
+2.  **Design System:**
+    * Cores Primárias: Navy Blue (#0f172a, #1e3a8a), Emerald Green (#059669).
+    * Estilo: Clean, profissional, responsivo (mobile-first), cards com sombras suaves.
+    * **NÃO** utilize SVG complexos ou Mermaid.js. Use HTML/CSS puro ou as bibliotecas de gráficos citadas.
+3.  **API Integration:**
+    * O código deve estar pronto para usar a API do Google Gemini (`gemini-2.5-flash-preview-09-2025`).
+    * Implemente uma função robusta `fetchWithRetry` para chamadas de API.
+    * Implemente tratamento de erros visuais (`handleApiError`).
+    * Não hardcode a API Key (assuma que o ambiente injeta ou deixe vazia).
+
+**ESTRUTURA DO CONTEÚDO (15 SEÇÕES):**
+
+**Cabeçalho (Hero):**
+* Título: "Engenharia Territorial e Gestão Eficiente".
+* Subtítulo/Missão: Focado em conformidade, formação técnica neutra (não partidária) e metodologia de 12 Módulos.
+
+**Seções Visuais (1-6) - Dados Estáticos:**
+1.  **Custo do Amadorismo:** 2 Gráficos de Barra (Chart.js) comparando "Rejeição de Contas" e "Captação de Recursos" (Gestão Técnica vs Improvisada).
+2.  **5 Pilares (LIMPE):** Gráfico Doughnut (Chart.js) distribuindo os princípios constitucionais.
+3.  **Arquitetura Jurídica:** Gráfico de Funnel/Pirâmide (Plotly.js) mostrando a hierarquia das leis (Constituição -> Portarias).
+4.  **Maturidade Urbana:** Gráfico de Radar (Chart.js) comparando "Cidade Tradicional" vs "Cidade 3ª Via".
+5.  **Ciclo Orçamentário:** Cards visuais explicando o fluxo PPA -> LDO -> LOA.
+6.  **Impacto Económico:** Gráfico Scatter Plot (Plotly.js) correlacionando "Liberdade Económica" com "Arrecadação Própria".
+
+**Ferramentas de IA Interativas (7-15) - Funcionalidade:**
+Para cada uma abaixo, crie um card com: Input (Textarea/Inputs), Botão de Ação e Área de Resultado (Markdown renderizado). Use System Prompts específicos para cada função.
+
+7.  **Simulador de Risco Jurídico:** O utilizador descreve uma ação, a IA avalia o risco (Alto/Médio/Baixo), fundamento legal e recomendação.
+8.  **Gerador de Plano de Ação:** Transforma um objetivo num plano de 5-7 passos baseados em Engenharia Territorial.
+9.  **Auditoria de Planos (JSON Mode):** Input de Cidade/Estado. A IA deve usar Google Search para buscar status do PMSB/PNRS e retornar um JSON para ser renderizado em HTML visual (sem mostrar o JSON bruto).
+10. **Gerador de Ideias Sustentáveis (ODS):** Gera projetos alinhados à Agenda 2030 baseados num desafio local.
+11. **Engenharia de Liderança Territorial:** Gera um organograma de 3 níveis (Núcleo > Célula > Pequeno Grupo) para o município inserido. *Importante: Ao carregar a página, se os campos estiverem preenchidos, deve gerar automaticamente.*
+12. **Assistente de Projeto de Lei:** Gera uma minuta básica (Ementa, Artigos, Justificativa) baseada num assunto.
+13. **Orçamento Participativo:** Quebra uma meta física em rubricas orçamentárias (PPA/LDO/LOA).
+14. **Protocolo de Crise:** Gera um comunicado oficial da Defesa Civil para situações de emergência.
+15. **Compliance Empresarial (B2G):** Gera um checklist para empresas/MEIs que querem vender para o governo ou obter certificações (ESG/ISO).
+
+**Rodapé:**
+* Informações detalhadas de contato da "CFER-BRASIL" e "TERRA E FÉ".
+* CNPJs, Endereços (MG e RS), Contatos (WhatsApp/Email).
+* Links para redes sociais (ícones SVG inline).
+* Dados bancários/PIX para doação/pagamento.
+
+**Gere o código completo, único e funcional.**

@@ -8,12 +8,13 @@ import {
   Ribbon
 } from 'lucide-react';
 import ManagementPanel from './ManagementPanel';
+import MethodologyPage from './MethodologyPage';
 
 const LandingPage: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<'student' | 'gov'>('student'); 
-  const [activeView, setActiveView] = useState<'home' | 'panel'>('home'); // Estado para navegação entre views
+  const [activeView, setActiveView] = useState<'home' | 'panel' | 'methodology'>('home');
   
   // Estado para o Quiz Interativo
   const [quizStep, setQuizStep] = useState<number>(0);
@@ -67,7 +68,7 @@ const LandingPage: React.FC = () => {
 
           {/* Navegação Desktop */}
           <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
-            <button onClick={() => { setActiveView('home'); window.location.hash = '#metodologia'; }} className="hover:text-[#2ECC71] transition-colors">Metodologia</button>
+            <button onClick={() => { setActiveView('methodology'); window.scrollTo(0,0); }} className={`transition-colors ${activeView === 'methodology' ? 'text-[#1B3B66] font-bold border-b-2 border-[#1B3B66]' : 'hover:text-[#2ECC71]'}`}>Metodologia</button>
             <button onClick={() => { setActiveView('home'); window.location.hash = '#cursos'; }} className="hover:text-[#2ECC71] transition-colors">Cursos</button>
             <button onClick={() => { setActiveView('panel'); window.scrollTo(0,0); }} className={`transition-colors ${activeView === 'panel' ? 'text-[#1B3B66] font-bold border-b-2 border-[#1B3B66]' : 'hover:text-[#2ECC71]'}`}>Painel de Gestão Técnica</button>
             <button 
@@ -95,7 +96,7 @@ const LandingPage: React.FC = () => {
         {/* Mobile Menu Content */}
         {isMenuOpen && (
           <div className="md:hidden bg-white border-b border-slate-200 p-4 flex flex-col gap-4 shadow-xl">
-            <button onClick={() => { setIsMenuOpen(false); setActiveView('home'); }} className="text-left py-2 border-b border-slate-100">Metodologia</button>
+            <button onClick={() => { setIsMenuOpen(false); setActiveView('methodology'); window.scrollTo(0,0); }} className="text-left py-2 border-b border-slate-100 text-[#1B3B66] font-bold">Metodologia</button>
             <button onClick={() => { setIsMenuOpen(false); setActiveView('home'); }} className="text-left py-2 border-b border-slate-100">Cursos</button>
             <button onClick={() => { setIsMenuOpen(false); setActiveView('panel'); window.scrollTo(0,0); }} className="text-left py-2 border-b border-slate-100 text-[#1B3B66] font-bold">Painel de Gestão Técnica</button>
             <button onClick={toggleModal} className="text-left py-2 text-[#2ECC71] font-semibold">Portal Transparência</button>
@@ -104,7 +105,9 @@ const LandingPage: React.FC = () => {
       </header>
 
       {/* CONDITIONAL RENDERING */}
-      {activeView === 'panel' ? (
+      {activeView === 'methodology' ? (
+        <MethodologyPage />
+      ) : activeView === 'panel' ? (
         <ManagementPanel />
       ) : (
         <>
