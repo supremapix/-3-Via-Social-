@@ -6,6 +6,8 @@ This is a React/Vite/TypeScript landing page application for "3ª Via Social" - 
 ## Tech Stack
 - **Frontend**: React 19, TypeScript
 - **Build Tool**: Vite 6
+- **Routing**: React Router DOM v7
+- **SEO**: React Helmet Async
 - **Styling**: Tailwind CSS (via CDN)
 - **Icons**: Lucide React
 - **Charts**: Chart.js, Plotly.js (loaded dynamically)
@@ -17,14 +19,26 @@ This is a React/Vite/TypeScript landing page application for "3ª Via Social" - 
 ├── components/
 │   ├── LandingPage.tsx      # Main landing page with hero, courses, contact
 │   ├── ManagementPanel.tsx  # Technical management panel component
-│   └── MethodologyPage.tsx  # 15-section methodology dashboard with AI tools
-├── App.tsx                   # Root app component
-├── index.tsx                 # App entry point
+│   ├── MethodologyPage.tsx  # 15-section methodology dashboard with AI tools
+│   ├── Header.tsx           # Shared navigation header component
+│   ├── Footer.tsx           # Shared footer component
+│   └── EnhancedSEO.tsx      # SEO component with meta tags and structured data
+├── public/
+│   ├── sitemap.xml          # XML sitemap for search engines
+│   ├── robots.txt           # Robots configuration
+│   └── _redirects           # Netlify SPA redirects
+├── App.tsx                   # Root app with React Router
+├── index.tsx                 # App entry point with HelmetProvider
 ├── index.html                # HTML template
 ├── vite.config.ts            # Vite configuration
 ├── tsconfig.json             # TypeScript configuration
 └── package.json              # Dependencies and scripts
 ```
+
+## Routes (URLs)
+- `/` - Home page (LandingPage)
+- `/metodologia` - Methodology dashboard with charts and AI tools
+- `/painel-gestao` - Technical management panel
 
 ## Development
 - **Port**: 5000
@@ -37,7 +51,18 @@ This is a React/Vite/TypeScript landing page application for "3ª Via Social" - 
 ## Build & Deployment
 - **Build**: `npm run build`
 - **Output**: `dist/` directory
-- **Deployment**: Static site deployment
+- **Deployment**: Static site deployment or Netlify (with _redirects file)
+
+## SEO Features
+- EnhancedSEO component with:
+  - Dynamic title and meta description per page
+  - Canonical URLs for each route
+  - Open Graph meta tags
+  - Twitter Card meta tags
+  - Structured data (JSON-LD) for Organization, WebPage, BreadcrumbList
+  - Resource hints (preconnect, dns-prefetch)
+- sitemap.xml with all routes
+- robots.txt with sitemap reference
 
 ## Features
 - Responsive landing page
@@ -46,12 +71,14 @@ This is a React/Vite/TypeScript landing page application for "3ª Via Social" - 
 - WhatsApp contact integration
 - Technical management panel with AI assistance
 - Transparency portal
+- Shared Header and Footer across all pages
 - **Methodology Page** (15 sections):
   - 6 data visualization sections with Chart.js and Plotly.js
-  - 9 AI-powered interactive tools (risk analysis, action plans, audits, ODS projects, leadership structures, law drafting, budget planning, crisis protocols, compliance checklists)
+  - 9 AI-powered interactive tools
 
-## Navigation
-- **Home**: Main landing page
-- **Metodologia**: New methodology dashboard with charts and AI tools
-- **Painel de Gestão Técnica**: Management panel
-- **Cursos**: Course section on landing page
+## Recent Changes (Dec 15, 2025)
+- Implemented React Router for proper URL-based navigation
+- Created shared Header and Footer components
+- Added EnhancedSEO component with comprehensive meta tags
+- Each page now has its own canonical URL and SEO configuration
+- Added sitemap.xml, robots.txt, and _redirects for Netlify

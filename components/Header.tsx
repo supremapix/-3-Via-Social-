@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, ShieldCheck } from 'lucide-react';
 
 interface HeaderProps {
@@ -9,8 +9,26 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ onTransparencyClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const isActive = (path: string) => location.pathname === path;
+
+  const handleHashNavigation = (hash: string) => {
+    if (location.pathname === '/') {
+      const element = document.querySelector(hash);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      navigate('/');
+      setTimeout(() => {
+        const element = document.querySelector(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  };
 
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200">
@@ -34,12 +52,12 @@ const Header: React.FC<HeaderProps> = ({ onTransparencyClick }) => {
           >
             Metodologia
           </Link>
-          <Link 
-            to="/#cursos" 
+          <button 
+            onClick={() => handleHashNavigation('#cursos')}
             className="hover:text-[#2ECC71] transition-colors"
           >
             Cursos
-          </Link>
+          </button>
           <Link 
             to="/painel-gestao" 
             className={`transition-colors ${isActive('/painel-gestao') ? 'text-[#1B3B66] font-bold border-b-2 border-[#1B3B66]' : 'hover:text-[#2ECC71]'}`}
@@ -55,12 +73,12 @@ const Header: React.FC<HeaderProps> = ({ onTransparencyClick }) => {
               Transparência
             </button>
           )}
-          <Link 
-            to="/#contato" 
+          <button 
+            onClick={() => handleHashNavigation('#contato')}
             className="px-5 py-2.5 bg-[#031226] text-white rounded-lg hover:bg-[#1B3B66] transition-all shadow-md"
           >
             Matricule-se
-          </Link>
+          </button>
         </nav>
 
         <button className="md:hidden p-2 text-slate-600" onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -77,13 +95,12 @@ const Header: React.FC<HeaderProps> = ({ onTransparencyClick }) => {
           >
             Metodologia
           </Link>
-          <Link 
-            to="/#cursos" 
-            onClick={() => setIsMenuOpen(false)} 
+          <button 
+            onClick={() => { setIsMenuOpen(false); handleHashNavigation('#cursos'); }}
             className="text-left py-2 border-b border-slate-100"
           >
             Cursos
-          </Link>
+          </button>
           <Link 
             to="/painel-gestao" 
             onClick={() => setIsMenuOpen(false)} 

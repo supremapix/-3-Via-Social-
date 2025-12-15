@@ -44,7 +44,8 @@ const ManagementPanel: React.FC = () => {
   const complianceQueryRef = useRef<HTMLTextAreaElement>(null);
 
   // Inicialização da API
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  const apiKey = process.env.GEMINI_API_KEY || '';
+  const ai = apiKey ? new GoogleGenAI({ apiKey }) : null;
   const modelName = 'gemini-2.5-flash';
 
   // --- EFEITOS (Gráficos) ---
@@ -256,6 +257,10 @@ const ManagementPanel: React.FC = () => {
   // --- FUNÇÕES DE API ---
 
   const handleGenAIRequest = async (key: string, userQuery: string, systemPrompt: string, useGoogleSearch: boolean = true, schema: any = null) => {
+    if (!ai) {
+      return "Chave da API Gemini não configurada. Configure GEMINI_API_KEY nas variáveis de ambiente.";
+    }
+    
     setLoading(key);
     setResults(prev => ({ ...prev, [key]: '' }));
 
