@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { GoogleGenAI, Type } from "@google/genai";
+import Header from './Header';
+import Footer from './Footer';
+import EnhancedSEO from './EnhancedSEO';
 
-// Declaração para evitar erros de TS com bibliotecas globais
 declare global {
   interface Window {
     Chart: any;
@@ -543,7 +545,14 @@ const ManagementPanel: React.FC = () => {
 
   return (
     <div className="min-h-screen text-slate-800 bg-[#f8fafc] font-sans">
-      <header className="bg-gradient-to-br from-[#0f172a] to-[#1e3a8a] text-white py-16 px-4 mb-12">
+      <EnhancedSEO 
+        title="Painel de Gestão Técnica - Ferramentas e Diagnósticos"
+        description="Painel de Gestão Técnica da 3ª Via Social com ferramentas de IA, indicadores municipais, análise de risco jurídico e diagnósticos para gestão pública eficiente."
+        canonical="/painel-gestao"
+        keywords="painel gestão, ferramentas IA, diagnóstico municipal, análise risco, compliance, gestão pública"
+      />
+      <Header />
+      <section className="bg-gradient-to-br from-[#0f172a] to-[#1e3a8a] text-white py-16 px-4 mb-12">
         <div className="max-w-6xl mx-auto text-center">
             <div className="inline-block px-4 py-1 mb-4 border border-emerald-400 rounded-full text-emerald-300 text-sm font-bold tracking-wider uppercase">
                 Compliance & Governança Pública
@@ -555,7 +564,7 @@ const ManagementPanel: React.FC = () => {
                Ferramentas, indicadores e diagnósticos para apoio à decisão.
             </p>
         </div>
-    </header>
+      </section>
 
     <main className="max-w-6xl mx-auto px-4 pb-20 space-y-16">
 
@@ -867,45 +876,7 @@ const ManagementPanel: React.FC = () => {
         </section>
 
     </main>
-
-    <footer className="bg-slate-900 text-white py-12 border-t-8 border-emerald-600">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-            <h2 className="text-2xl font-bold mb-4">CFER-BRASIL & TERRA E FÉ</h2>
-            <p className="text-slate-400 mb-8 max-w-2xl mx-auto">
-                Consultoria em Gestão Pública e Formação de Lideranças. Habilitação Jurídica para contratos B2G.
-                CNPJ: 62.162.691/0001-87
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-sm text-slate-300 text-left">
-                <div>
-                    <span className="block font-bold text-white mb-1">Sede Administrativa (MG)</span>
-                    Rua Da Bahia 1148, Sala 1208<br/>Belo Horizonte - MG
-                </div>
-                <div>
-                    <span className="block font-bold text-white mb-1">Contacto Principal e Suporte</span>
-                    <span className="font-bold text-emerald-400">WhatsApp:</span> <a href="https://wa.me/5551995347903" className="hover:text-white transition">51 99534-7903</a><br/>
-                    <span className="font-bold text-slate-300">Tel. Fixo:</span> (41) 9272-1004 (Comercial)
-                </div>
-                <div>
-                    <span className="block font-bold text-white mb-1">Direção Estratégica Remota</span>
-                    <span className="font-bold text-emerald-400">Local:</span> Porto Alegre - RS<br/>
-                    <span className="text-xs text-slate-400 mt-1 block">Engenharia Territorial e Governança.<br/>Atendimento com agenda prévia.</span>
-                </div>
-                <div>
-                    <span className="block font-bold text-white mb-3">Redes Sociais e Portais</span>
-                    <span className="block font-bold text-white mb-2">Sites Oficiais:</span>
-                    <a href="https://www.cfer-br.com.br" target="_blank" className="block w-full text-center py-2 mb-2 bg-emerald-600 hover:bg-emerald-500 rounded-lg text-white font-bold transition text-sm">
-                        CFER-BR (Consultoria)
-                    </a>
-                    <a href="https://www.terraefe.com.br" target="_blank" className="block w-full text-center py-2 bg-blue-700 hover:bg-blue-600 rounded-lg text-white font-bold transition text-sm">
-                        TERRA E FÉ (Formação)
-                    </a>
-                </div>
-            </div>
-            <div className="mt-8 text-xs text-slate-500 text-center">
-                © 2025 Grupo 3ª Via Social. Todos os direitos reservados.
-            </div>
-        </div>
-    </footer>
+      <Footer />
     </div>
   );
 };

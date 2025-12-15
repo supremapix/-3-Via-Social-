@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { GoogleGenAI } from '@google/genai';
+import Header from './Header';
+import Footer from './Footer';
+import EnhancedSEO from './EnhancedSEO';
 
 declare global {
   interface Window {
@@ -323,7 +326,14 @@ const MethodologyPage: React.FC = () => {
 
   return (
     <div className="bg-slate-50 text-slate-800 min-h-screen">
-      <header className="bg-gradient-to-br from-[#0f172a] to-[#1e3a8a] text-white py-16 px-4 mb-12">
+      <EnhancedSEO 
+        title="Metodologia - Engenharia Territorial e Gestão Eficiente"
+        description="Conheça a metodologia da 3ª Via Social: Engenharia Territorial, Compliance, Governança Pública e ferramentas de IA para gestão municipal. Formação técnica neutra baseada na LRF."
+        canonical="/metodologia"
+        keywords="metodologia gestão pública, engenharia territorial, LIMPE, governança, compliance municipal, LRF, capacitação gestores"
+      />
+      <Header />
+      <section className="bg-gradient-to-br from-[#0f172a] to-[#1e3a8a] text-white py-16 px-4 mb-12">
         <div className="max-w-6xl mx-auto text-center">
           <div className="inline-block px-4 py-1 mb-4 border border-emerald-400 rounded-full text-emerald-300 text-sm font-bold tracking-wider uppercase">
             Compliance & Governança Pública
@@ -335,7 +345,7 @@ const MethodologyPage: React.FC = () => {
             Plataforma de <strong>Consultoria e Formação Técnica Neutra</strong>. Não somos partido ou organização religiosa. Preparamos líderes municipais para Gestão de Alta Performance.
           </p>
         </div>
-      </header>
+      </section>
 
       <main className="max-w-6xl mx-auto px-4 pb-20 space-y-16">
         
@@ -833,29 +843,8 @@ const MethodologyPage: React.FC = () => {
           </div>
         </section>
 
-        <footer className="mt-20 pt-12 border-t border-slate-200">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm text-slate-600">
-            <div>
-              <h4 className="font-bold text-slate-900 mb-4">CFER-BRASIL</h4>
-              <p>CNPJ: 48.488.559/0001-44</p>
-              <p>Ouro Preto - MG</p>
-            </div>
-            <div>
-              <h4 className="font-bold text-slate-900 mb-4">TERRA E FÉ</h4>
-              <p>CNPJ: 36.008.222/0001-00</p>
-              <p>Portão - RS</p>
-            </div>
-            <div>
-              <h4 className="font-bold text-slate-900 mb-4">Contato</h4>
-              <p>WhatsApp: (51) 99534-7903</p>
-              <p>Email: contato@3aviasocial.com.br</p>
-            </div>
-          </div>
-          <div className="mt-8 text-center text-xs text-slate-400">
-            <p>© 2025 3ª Via Social. Plataforma de Formação Técnica Neutra.</p>
-          </div>
-        </footer>
       </main>
+      <Footer />
     </div>
   );
 };

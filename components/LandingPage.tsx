@@ -7,14 +7,13 @@ import {
   MapPin, Lightbulb, PieChart, Leaf, Link, Share2, TrendingUp, User,
   Ribbon
 } from 'lucide-react';
-import ManagementPanel from './ManagementPanel';
-import MethodologyPage from './MethodologyPage';
+import Header from './Header';
+import Footer from './Footer';
+import EnhancedSEO from './EnhancedSEO';
 
 const LandingPage: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [activeTab, setActiveTab] = useState<'student' | 'gov'>('student'); 
-  const [activeView, setActiveView] = useState<'home' | 'panel' | 'methodology'>('home');
+  const [activeTab, setActiveTab] = useState<'student' | 'gov'>('student');
   
   // Estado para o Quiz Interativo
   const [quizStep, setQuizStep] = useState<number>(0);
@@ -47,70 +46,14 @@ const LandingPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 font-sans">
+      <EnhancedSEO 
+        title="Formação em Gestão Pública e Liderança"
+        description="3ª Via Social: Consultoria e educação política focada em resultados técnicos. Cursos de gestão pública, liderança municipal e engenharia territorial. Conforme Lei de Responsabilidade Fiscal."
+        canonical="/"
+        keywords="gestão pública, liderança municipal, cursos gestão, engenharia territorial, LRF, capacitação prefeitos, vereadores, 3ª via social"
+      />
+      <Header onTransparencyClick={toggleModal} />
       
-      {/* 1. HEADER (Sticky) */}
-      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200">
-        <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-          {/* Logo Oficial 3ª Via Social */}
-          <div className="flex items-center gap-3 cursor-pointer group" onClick={() => { setActiveView('home'); window.scrollTo(0,0); }}>
-            {/* Ícone de Barras */}
-            <div className="flex items-end gap-1.5 h-10 pb-1">
-              <div className="w-2.5 h-6 bg-[#1B3B66] rounded-t-sm group-hover:h-7 transition-all duration-300"></div>
-              <div className="w-2.5 h-10 bg-[#2ECC71] rounded-t-sm group-hover:h-11 transition-all duration-300"></div>
-              <div className="w-2.5 h-8 bg-[#F1C40F] rounded-t-sm group-hover:h-9 transition-all duration-300"></div>
-            </div>
-            {/* Texto do Logo */}
-            <div className="flex flex-col justify-center">
-              <h1 className="text-xl font-bold text-[#1B3B66] leading-none tracking-tight">3ª VIA SOCIAL</h1>
-              <p className="text-[10px] text-slate-500 font-bold tracking-[0.2em] uppercase mt-1">Gestão e Liderança</p>
-            </div>
-          </div>
-
-          {/* Navegação Desktop */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
-            <button onClick={() => { setActiveView('methodology'); window.scrollTo(0,0); }} className={`transition-colors ${activeView === 'methodology' ? 'text-[#1B3B66] font-bold border-b-2 border-[#1B3B66]' : 'hover:text-[#2ECC71]'}`}>Metodologia</button>
-            <button onClick={() => { setActiveView('home'); window.location.hash = '#cursos'; }} className="hover:text-[#2ECC71] transition-colors">Cursos</button>
-            <button onClick={() => { setActiveView('panel'); window.scrollTo(0,0); }} className={`transition-colors ${activeView === 'panel' ? 'text-[#1B3B66] font-bold border-b-2 border-[#1B3B66]' : 'hover:text-[#2ECC71]'}`}>Painel de Gestão Técnica</button>
-            <button 
-              onClick={toggleModal}
-              className="flex items-center gap-2 px-4 py-2 border border-slate-300 rounded-full hover:bg-slate-50 transition-colors text-xs uppercase tracking-wide"
-            >
-              <ShieldCheck size={16} className="text-[#2ECC71]" />
-              Transparência
-            </button>
-            <a 
-              href="#contato" 
-              onClick={() => setActiveView('home')}
-              className="px-5 py-2.5 bg-[#031226] text-white rounded-lg hover:bg-[#1B3B66] transition-all shadow-md"
-            >
-              Matricule-se
-            </a>
-          </nav>
-
-          {/* Mobile Menu Toggle */}
-          <button className="md:hidden p-2 text-slate-600" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            {isMenuOpen ? <X /> : <Menu />}
-          </button>
-        </div>
-
-        {/* Mobile Menu Content */}
-        {isMenuOpen && (
-          <div className="md:hidden bg-white border-b border-slate-200 p-4 flex flex-col gap-4 shadow-xl">
-            <button onClick={() => { setIsMenuOpen(false); setActiveView('methodology'); window.scrollTo(0,0); }} className="text-left py-2 border-b border-slate-100 text-[#1B3B66] font-bold">Metodologia</button>
-            <button onClick={() => { setIsMenuOpen(false); setActiveView('home'); }} className="text-left py-2 border-b border-slate-100">Cursos</button>
-            <button onClick={() => { setIsMenuOpen(false); setActiveView('panel'); window.scrollTo(0,0); }} className="text-left py-2 border-b border-slate-100 text-[#1B3B66] font-bold">Painel de Gestão Técnica</button>
-            <button onClick={toggleModal} className="text-left py-2 text-[#2ECC71] font-semibold">Portal Transparência</button>
-          </div>
-        )}
-      </header>
-
-      {/* CONDITIONAL RENDERING */}
-      {activeView === 'methodology' ? (
-        <MethodologyPage />
-      ) : activeView === 'panel' ? (
-        <ManagementPanel />
-      ) : (
-        <>
           {/* 2. HERO SECTION REFORMULADA */}
           <section className="relative bg-[#031226] text-white pt-24 pb-32 overflow-hidden">
             {/* Fundo Gradiente e Textura */}
@@ -695,8 +638,6 @@ const LandingPage: React.FC = () => {
               </div>
             </div>
           </footer>
-        </>
-      )}
 
       {/* 10. MODAL DE TRANSPARÊNCIA */}
       {isModalOpen && (
